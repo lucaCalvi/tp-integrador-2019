@@ -1,0 +1,32 @@
+<div>
+    <h3>Listado de usuarios</h3>
+</div>
+<div class="container">
+    <div>
+        <app-search-box (listUsuarios)="updateList($event)"></app-search-box>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Usuario</th>
+                    <th>Tareas</th>
+                    <th>Detalle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let usuario of usuarios$ | async">
+                    <td>{{usuario.nombre}}</td>
+                    <td>{{usuario.apellido}}</td> 
+                    <td>{{usuario.nombreUsuario}}</td>
+                    <td>
+                        <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/tareas" class="btn-floating waves-effect waves-light red"><i class="material-icons">event_note</i></a>
+                    </td>
+                    <td>
+                        <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

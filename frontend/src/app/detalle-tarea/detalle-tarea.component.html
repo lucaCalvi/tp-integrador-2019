@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col s12 m12">
+      <div class="card red lighten-1 card z-depth-4">
+        <div class="card-content white-text">
+          <span class="card-title">Detalle de Tarea</span><hr>
+          <h5>Descripcion</h5>{{tarea.descripcion}}
+          <h5>Fecha de inicio</h5>{{tarea.fechaInicio | date: 'shortDate'}}
+          <h5>Fecha de finalizacion</h5>{{tarea.fechaFin | date: 'shortDate'}}<span *ngIf="tarea.fechaFin == null">-Sin especificar-</span>
+          <h5>Fecha limite</h5>{{tarea.fechaLimite | date: 'shortDate'}}
+          <h5>Lugar</h5>{{tarea.lugar}}<span *ngIf="tarea.lugar == ''">-Sin especificar-</span>
+          <h5>Estado</h5>{{tarea.estado}}
+          <h5>Asignador</h5>{{asignador.nombre}} {{asignador.apellido}}
+        </div>
+      </div>
+    </div>
+</div>
+<div>
+    <button class="waves-effect waves-light btn red" (click)="goBack()">Volver</button>
+</div>

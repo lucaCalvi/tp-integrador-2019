@@ -1,0 +1,29 @@
+<div>
+    <h3>Tareas asignadas a {{usuario.nombre}} {{usuario.apellido}}</h3>
+</div>
+<div class="container">
+    <h5 *ngIf="tareas == ''">No existen Tareas asignadas</h5>
+    <table class="striped" *ngIf="tareas != ''">
+        <thead>
+            <tr>
+                <th>Descripcion</th>
+                <th>Fecha de inicio</th>
+                <th>Estado</th>
+                <th>Detalle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tarea of tareas">
+                <td>{{tarea.descripcion}}</td>
+                <td>{{tarea.fechaInicio | date: 'shortDate'}}</td>
+                <td>{{tarea.estado}}</td>
+                <td>
+                    <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/tareas/{{tarea._id}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <button class="waves-effect waves-light btn red" (click)="goBack()">Volver</button>
+</div>

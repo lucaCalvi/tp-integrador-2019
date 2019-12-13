@@ -1,0 +1,22 @@
+div {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+span.card-title {
+    font-size: 45px;
+    font-style: normal;
+    font-weight: normal;
+}
+
+div.card {
+    margin-top: 30px;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+hr {
+    height: 0px;
+    background-color: white;
+    margin-top: 15px;
+  }
