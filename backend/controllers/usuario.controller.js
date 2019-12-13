@@ -1,5 +1,8 @@
 const Usuario = require('../models/usuario');
 const Tarea = require('../models/tarea');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const SECRET_KEY = 'secretkey1234';
 UsuarioController = {};
 
 //NO USAR ID MONGO, usar nombre de usuario para las usaurio y un id generado para tareas
@@ -33,7 +36,7 @@ UsuarioController.insertUsuario = (req, res) => {
         apellido: req.body.apellido,
         email: req.body.email,
         nombreUsuario: req.body.nombreUsuario,
-        contraseña: req.body.contraseña,
+        contraseña: bcrypt.hashSync(req.body.contraseña),
         etiqueta: req.body.etiqueta,
         informacion: req.body.informacion,
         contactos: req.body.contactos
@@ -58,6 +61,9 @@ UsuarioController.insertUsuario = (req, res) => {
         })
         .then(() => {
             usuario.save(() => {
+                //-----------------------ver---------------------------
+                const expiresIn = 24*60*60;
+                const accessToken = jwt.sign({id: usuario.nombreUsuario}, SECRET_KEY, {expiresIn: expiresIn})
                 res.status(200).json({id: req.body.nombreUsuario});
             });
         })
