@@ -13,6 +13,7 @@ import { ListadoTareasAsignadasComponent } from './listado-tareas-asignadas/list
 import { DetalleTareaComponent } from './detalle-tarea/detalle-tarea.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { FormularioComponent } from './formulario/formulario.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormularioComponent } from './formulario/formulario.component';
     ListadoTareasAsignadasComponent,
     DetalleTareaComponent,
     SearchBoxComponent,
-    FormularioComponent
+    FormularioComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
