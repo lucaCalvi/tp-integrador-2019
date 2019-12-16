@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { UsuarioService } from '../usuario.service';
-import { Usuario } from '../usuario';
+import { UsuarioService } from '../services/usuario.service';
+import { Usuario } from '../models/usuario';
 
 @Component({
   selector: 'app-formulario',

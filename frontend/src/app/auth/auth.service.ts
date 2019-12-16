@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Usuario } from './usuario';
+import { Usuario } from '../models/usuario';
 import { JwtResponse } from './jwt-response';
 import { tap } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { isNullOrUndefined } from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,6 @@ export class AuthService {
   constructor(private httpclient: HttpClient) { }
 
   login(usuario): Observable<JwtResponse> {
-    console.log(usuario)
     return this.httpclient.post<JwtResponse>(`${this.URL_API}/login`, usuario).pipe(tap(
       (res: JwtResponse) => {
         if(res) {
@@ -43,7 +43,15 @@ export class AuthService {
     if(!this.token) {
       this.token = localStorage.getItem("ACCESS_TOKEN");
     }
-
     return this.token;
+  }
+
+  isLogged() {
+    if(!isNullOrUndefined(this.getToken())) {
+      return this.token;
+    }
+    else {
+      return null;
+    }
   }
 }

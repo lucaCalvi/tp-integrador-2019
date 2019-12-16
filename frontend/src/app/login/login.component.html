@@ -1,4 +1,5 @@
-<div class="login">
+<app-menu></app-menu>
+<div class="login z-depth-4">
     <h2 class="login-header">Log in</h2>
     <form #frmLogin="ngForm" class="login-container" (ngSubmit)="login(frmLogin)">
       <p><input type="usuario" name="nombreUsuario" placeholder="Usuario" [(ngModel)]="usuario"></p>

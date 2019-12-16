@@ -2,8 +2,11 @@
     <div class="nav-wrapper">
       <a class="brand-logo center">Sistema de Asignación de Tareas</a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a routerLink="/api/usuarios">Listado Usuarios</a></li>
-        <li><a routerLink="/api/agregar-usuario">Agregar Usuario</a></li>
+        <li><a routerLink="/api/usuarios" *ngIf="isLogged">Listado Usuarios</a></li>
+        <li><a routerLink="/api/agregar-usuario" *ngIf="!isLogged">Registrar</a></li>
+      </ul>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a routerLink="/api/login" *ngIf="isLogged">Cerrar Sesion</a></li>
       </ul>
     </div>
 </nav>

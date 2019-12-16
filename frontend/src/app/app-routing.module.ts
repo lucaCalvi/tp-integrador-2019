@@ -7,13 +7,14 @@ import { ListadoTareasAsignadasComponent } from './listado-tareas-asignadas/list
 import { DetalleTareaComponent } from './detalle-tarea/detalle-tarea.component';
 import { FormularioComponent } from './formulario/formulario.component';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/api/login', pathMatch: 'full' },
-  { path: 'api/usuarios', component: ListadoUsuariosComponent },
-  { path: 'api/usuarios/:nombreUsuario', component: DetalleUsuarioComponent },
-  { path: 'api/usuarios/:nombreUsuario/tareas', component: ListadoTareasAsignadasComponent },
-  { path: 'api/usuarios/:nombreUsuario/tareas/:idTarea', component: DetalleTareaComponent },
+  { path: 'api/usuarios', component: ListadoUsuariosComponent, canActivate: [AuthGuard] },
+  { path: 'api/usuarios/:nombreUsuario', component: DetalleUsuarioComponent, canActivate: [AuthGuard] },
+  { path: 'api/usuarios/:nombreUsuario/tareas', component: ListadoTareasAsignadasComponent, canActivate: [AuthGuard] },
+  { path: 'api/usuarios/:nombreUsuario/tareas/:idTarea', component: DetalleTareaComponent, canActivate: [AuthGuard] },
   { path: 'api/agregar-usuario', component: FormularioComponent },
   { path: 'api/login', component:LoginComponent }
   //{ path: 'api/menu', component: MenuComponent }

@@ -61,9 +61,6 @@ UsuarioController.insertUsuario = (req, res) => {
         })
         .then(() => {
             usuario.save(() => {
-                //-----------------------ver---------------------------
-                const expiresIn = 24*60*60;
-                const accessToken = jwt.sign({id: usuario.nombreUsuario}, SECRET_KEY, {expiresIn: expiresIn})
                 res.status(200).json({id: req.body.nombreUsuario});
             });
         })
