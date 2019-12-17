@@ -100,6 +100,17 @@ UsuarioController.updateUsuario = (req, res) => {
             }
             return Promise.resolve();
         })
+        .then(() => Usuario.findOne({nombreUsuario: usuario.nombreUsuario}))
+          .then(user => {
+            if(bcrypt.compareSync(usuario.contraseña, user.contraseña)){
+                usuario.contraseña = user.contraseña;
+                return Promise.resolve();
+            }
+            else {
+                status = 400;
+                throw new Error("Contraseña incorrecta");
+            }
+          })
         .then(() => {
             Usuario.findOneAndUpdate({nombreUsuario: nombreUsuario}, {$set: usuario}, () => {
                 res.status(200).json({id: nombreUsuario});
@@ -112,22 +123,35 @@ UsuarioController.updateUsuario = (req, res) => {
 
 UsuarioController.deleteUsuario = (req, res) => {
     const nombreUsuario = req.params.nombreUsuario;
-    Usuario.findOneAndRemove({nombreUsuario: nombreUsuario})
-        .then(() => {
-            Tarea.deleteMany({id_asignador: nombreUsuario}, () => {
+    const contraseña = req.params.contraseña;
+    Usuario.findOne({nombreUsuario: usuario.nombreUsuario})
+        .then(user => {
+            if(bcrypt.compareSync(contraseña, user.contraseña)){
+                console.log(contraseña);
                 return Promise.resolve();
-            });
+            }
+            else {
+                status = 400;
+                throw new Error("Contraseña incorrecta");
+            }
         })
-        .then(() => {
-            Tarea.update({}, {$pull: {id_asignado: nombreUsuario}}, { multi: true }, () => {
-                return Promise.resolve();
-            });
-        })
-        .then(() => {
-            res.status(200).json({id: nombreUsuario});
-        })
-        .catch(err => {
-            res.status(500).json({error: err.message});
+        .then(() => { Usuario.findOneAndRemove({nombreUsuario: nombreUsuario})
+            .then(() => {
+                Tarea.deleteMany({id_asignador: nombreUsuario}, () => {
+                    return Promise.resolve();
+                });
+            })
+            .then(() => {
+                Tarea.update({}, {$pull: {id_asignado: nombreUsuario}}, { multi: true }, () => {
+                    return Promise.resolve();
+                });
+            })
+            .then(() => {
+                res.status(200).json({id: nombreUsuario});
+            })
+            .catch(err => {
+                res.status(500).json({error: err.message});
+            })
         });
 }
 

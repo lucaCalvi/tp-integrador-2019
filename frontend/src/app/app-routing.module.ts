@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'api/usuarios/:nombreUsuario/tareas', component: ListadoTareasAsignadasComponent, canActivate: [AuthGuard] },
   { path: 'api/usuarios/:nombreUsuario/tareas/:idTarea', component: DetalleTareaComponent, canActivate: [AuthGuard] },
   { path: 'api/agregar-usuario', component: FormularioComponent },
+  { path: 'api/configuracionUsuario', component: FormularioComponent, canActivate: [AuthGuard] },
   { path: 'api/login', component:LoginComponent }
   //{ path: 'api/menu', component: MenuComponent }
 ];

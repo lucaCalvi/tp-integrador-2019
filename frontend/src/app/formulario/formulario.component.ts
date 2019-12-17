@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../models/usuario';
+import { AuthService } from '../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formulario',
@@ -10,7 +12,8 @@ import { Usuario } from '../models/usuario';
 })
 export class FormularioComponent implements OnInit {
 
-  usuario: Usuario = null;
+  usuario = null;
+
   nombre = null;
   apellido = null;
   nombreUsuario = null;
@@ -18,12 +21,31 @@ export class FormularioComponent implements OnInit {
   email = null;
   informacion = null;
 
-  constructor(private location: Location, private usuarioService: UsuarioService) { }
+  currentUserName = null;
+
+  constructor(
+    private location: Location, 
+    private usuarioService: UsuarioService, 
+    private authService: AuthService, 
+    private router: Router) { }
 
   ngOnInit() {
+    this.currentUserName = this.authService.getUser();
+    if(this.currentUserName) {
+      this.usuarioService.getUsuario(this.currentUserName)
+      .subscribe(res => {
+        this.usuario = res;
+        this.loadForm();
+      },
+      err => {
+        console.log('Error ', err);
+      });
+    }
   }
 
   insertUsuario(){
+    this.usuario = null;
+    this.usuario = new Usuario();
     this.loadUsuario();
     this.usuarioService.insertUsuario(this.usuario)
       .subscribe(() => {
@@ -34,14 +56,21 @@ export class FormularioComponent implements OnInit {
       });
   }
 
-  loadUsuario(){
-    this.usuario = new Usuario();
+  loadUsuario() {
     this.usuario.nombre = this.nombre;
     this.usuario.apellido = this.apellido;
     this.usuario.email = this.email;
     this.usuario.nombreUsuario = this.nombreUsuario;
     this.usuario.contraseña = this.contrasenia;
     this.usuario.informacion = this.informacion;
+  }
+
+  loadForm() {
+    this.nombre = this.usuario.nombre;
+    this.apellido = this.usuario.apellido;
+    this.email = this.usuario.email;
+    this.nombreUsuario = this.usuario.nombreUsuario;
+    this.informacion = this.usuario.informacion;
   }
 
   resetForm() {
@@ -53,8 +82,30 @@ export class FormularioComponent implements OnInit {
     this.informacion = '';
   }
 
-  goBack(){
+  goBack() {
     this.location.back();
+  }
+
+  updateUsuario() {
+    this.loadUsuario();
+    this.usuarioService.updateUsuario(this.usuario)
+    .subscribe(() => {
+      this.goBack();
+    },
+    err => {
+      console.log('Error ', err);
+    });
+  }
+
+  deleteUsuario() {
+    this.usuarioService.deleteUsuario(this.usuario)
+    .subscribe(() => {
+      this.authService.logout();
+      this.router.navigateByUrl('/api/login');
+    },
+    err => {
+      console.log('Error ', err);
+    });
   }
 
 }
