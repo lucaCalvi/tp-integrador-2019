@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -45,7 +45,7 @@ export class UsuarioService {
     return this.httpClient.put(this.URL_API + `/${usuario.nombreUsuario}`, usuario);
   }
 
-  deleteUsuario(usuario): Observable<Object> {
-    return this.httpClient.delete(this.URL_API + `/${usuario.nombreUsuario}`, {params: {['contraseña']: usuario.contraseña}});
+  deleteUsuario(usuario, contraseña): Observable<Object> {
+    return this.httpClient.request('delete', this.URL_API + `/${usuario.nombreUsuario}`, {body: {contraseña}})
   }
 }

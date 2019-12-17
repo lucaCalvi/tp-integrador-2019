@@ -100,7 +100,7 @@ UsuarioController.updateUsuario = (req, res) => {
             }
             return Promise.resolve();
         })
-        .then(() => Usuario.findOne({nombreUsuario: usuario.nombreUsuario}))
+        .then(() => Usuario.findOne({nombreUsuario: usuario.nombreUsuario})
           .then(user => {
             if(bcrypt.compareSync(usuario.contraseña, user.contraseña)){
                 usuario.contraseña = user.contraseña;
@@ -111,6 +111,7 @@ UsuarioController.updateUsuario = (req, res) => {
                 throw new Error("Contraseña incorrecta");
             }
           })
+        )
         .then(() => {
             Usuario.findOneAndUpdate({nombreUsuario: nombreUsuario}, {$set: usuario}, () => {
                 res.status(200).json({id: nombreUsuario});
@@ -123,8 +124,8 @@ UsuarioController.updateUsuario = (req, res) => {
 
 UsuarioController.deleteUsuario = (req, res) => {
     const nombreUsuario = req.params.nombreUsuario;
-    const contraseña = req.params.contraseña;
-    Usuario.findOne({nombreUsuario: usuario.nombreUsuario})
+    const contraseña = req.body.contraseña;
+    Usuario.findOne({nombreUsuario: nombreUsuario})
         .then(user => {
             if(bcrypt.compareSync(contraseña, user.contraseña)){
                 console.log(contraseña);
@@ -146,12 +147,12 @@ UsuarioController.deleteUsuario = (req, res) => {
                     return Promise.resolve();
                 });
             })
-            .then(() => {
-                res.status(200).json({id: nombreUsuario});
-            })
-            .catch(err => {
-                res.status(500).json({error: err.message});
-            })
+        })
+        .then(() => {
+            res.status(200).json({id: nombreUsuario});
+        })
+        .catch(err => {
+            res.status(status || 500).json({error: err.message});
         });
 }
 

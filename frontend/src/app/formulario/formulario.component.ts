@@ -4,6 +4,7 @@ import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../models/usuario';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-formulario',
@@ -98,7 +99,10 @@ export class FormularioComponent implements OnInit {
   }
 
   deleteUsuario() {
-    this.usuarioService.deleteUsuario(this.usuario)
+    if(isNullOrUndefined(this.contrasenia)) {
+      this.contrasenia = '';
+    }
+    this.usuarioService.deleteUsuario(this.usuario, this.contrasenia)
     .subscribe(() => {
       this.authService.logout();
       this.router.navigateByUrl('/api/login');
