@@ -1,0 +1,35 @@
+div {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+button {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+div.card {
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+span.titulo {
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+    margin-left: 50px;
+}
+
+span {
+    font-size: 18px;
+}
+
+i {
+    margin-right: 20px;
+    margin-left: 0px;
+}
+
+a.agregar {
+    font-size: 30px;
+    margin-bottom: 15px;
+}

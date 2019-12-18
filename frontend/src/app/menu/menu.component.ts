@@ -10,6 +10,8 @@ export class MenuComponent implements OnInit {
 
   isLogged = false;
 
+  currentUser = null;
+
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
@@ -19,6 +21,7 @@ export class MenuComponent implements OnInit {
   islogged() {
     if(this.authService.isLogged()) {
       this.isLogged = true;
+      this.currentUser = localStorage.getItem("USUARIO");
     }
     else {
       this.isLogged = false;

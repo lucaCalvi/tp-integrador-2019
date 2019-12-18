@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListadoUsuariosComponent } from './listado-usuarios/listado-usuarios.component';
 import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
@@ -8,6 +8,8 @@ import { DetalleTareaComponent } from './detalle-tarea/detalle-tarea.component';
 import { FormularioComponent } from './formulario/formulario.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ListadoTareasCreadasComponent } from './listado-tareas-creadas/listado-tareas-creadas.component';
+import { FormularioTareaComponent } from './formulario-tarea/formulario-tarea.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/api/login', pathMatch: 'full' },
@@ -17,7 +19,9 @@ const routes: Routes = [
   { path: 'api/usuarios/:nombreUsuario/tareas/:idTarea', component: DetalleTareaComponent, canActivate: [AuthGuard] },
   { path: 'api/agregar-usuario', component: FormularioComponent },
   { path: 'api/configuracionUsuario', component: FormularioComponent, canActivate: [AuthGuard] },
-  { path: 'api/login', component:LoginComponent }
+  { path: 'api/login', component: LoginComponent },
+  { path: 'api/tareas/:nombreUsuario', component: ListadoTareasCreadasComponent, canActivate: [AuthGuard] },
+  { path: 'api/agregar-tarea', component: FormularioTareaComponent, canActivate: [AuthGuard]}
   //{ path: 'api/menu', component: MenuComponent }
 ];
 

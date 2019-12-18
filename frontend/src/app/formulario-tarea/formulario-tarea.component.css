@@ -1,0 +1,14 @@
+div.card {
+    margin-top: 70px;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+button {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+input {
+    color: white;
+}

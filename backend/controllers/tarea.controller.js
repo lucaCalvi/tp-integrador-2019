@@ -77,4 +77,15 @@ TareaController.deleteTarea = (req, res) => {
       });
 }
 
+TareaController.getMisTareas = (req, res) => {
+    const nombreUsuario = req.params.nombreUsuario;
+    Tarea.find({id_asignador: nombreUsuario})
+      .then(tareas => {
+          res.status(200).json(tareas);
+      })
+      .catch(err => {
+          res.status(500).json({error: err.message});
+      });   
+}
+
 module.exports = TareaController;

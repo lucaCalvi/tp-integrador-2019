@@ -14,6 +14,8 @@ import { DetalleTareaComponent } from './detalle-tarea/detalle-tarea.component';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { FormularioComponent } from './formulario/formulario.component';
 import { LoginComponent } from './login/login.component';
+import { ListadoTareasCreadasComponent } from './listado-tareas-creadas/listado-tareas-creadas.component';
+import { FormularioTareaComponent } from './formulario-tarea/formulario-tarea.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { LoginComponent } from './login/login.component';
     DetalleTareaComponent,
     SearchBoxComponent,
     FormularioComponent,
-    LoginComponent
+    LoginComponent,
+    ListadoTareasCreadasComponent,
+    FormularioTareaComponent
   ],
   imports: [
     BrowserModule,

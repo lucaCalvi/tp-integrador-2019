@@ -18,19 +18,19 @@
             </thead>
             <tbody>
                 <tr *ngFor="let usuario of usuarios$ | async">
-                    <td>{{usuario.nombre}}</td>
-                    <td>{{usuario.apellido}}</td> 
-                    <td>{{usuario.nombreUsuario}}</td>
-                    <td>
+                    <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.nombre}}</td>
+                    <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.apellido}}</td> 
+                    <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.nombreUsuario}}</td>
+                    <td *ngIf="usuario.nombreUsuario != currentUser">
                         <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/tareas" class="btn-floating waves-effect waves-light red"><i class="material-icons">event_note</i></a>
                     </td>
-                    <td>
+                    <td *ngIf="usuario.nombreUsuario != currentUser">
                         <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
                     </td>
-                    <td *ngIf="!usuarioSesion.contactos.includes(usuario.nombreUsuario)">
+                    <td *ngIf="!usuarioSesion.contactos.includes(usuario.nombreUsuario) && usuario.nombreUsuario != currentUser">
                         <button (click)="agregarContacto(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">add</i></button>
                     </td>
-                    <td *ngIf="usuarioSesion.contactos.includes(usuario.nombreUsuario)">
+                    <td *ngIf="usuarioSesion.contactos.includes(usuario.nombreUsuario) && usuario.nombreUsuario != currentUser">
                         <button (click)="eliminarContacto(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">clear</i></button>
                     </td>
                 </tr>
