@@ -11,5 +11,7 @@ router.delete('/:nombreUsuario', UsuarioController.deleteUsuario);
 router.get('/:nombreUsuario/tareas', TareaController.getTareas);
 router.get('/:nombreUsuario/tareas/:idTarea', TareaController.getTarea);
 router.get('/search/:nombreUsuario', UsuarioController.searchUsuario);
+router.put('/:nombreUsuario/contactos/agregarContacto', UsuarioController.agregarContacto);
+router.put('/:nombreUsuario/contactos/eliminarContacto', UsuarioController.eliminarContacto);
 
 module.exports = router;

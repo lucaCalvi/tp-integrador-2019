@@ -13,6 +13,7 @@
                     <th>Usuario</th>
                     <th>Tareas</th>
                     <th>Detalle</th>
+                    <th>Contacto</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,6 +26,12 @@
                     </td>
                     <td>
                         <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
+                    </td>
+                    <td *ngIf="!usuarioSesion.contactos.includes(usuario.nombreUsuario)">
+                        <button (click)="agregarContacto(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">add</i></button>
+                    </td>
+                    <td *ngIf="usuarioSesion.contactos.includes(usuario.nombreUsuario)">
+                        <button (click)="eliminarContacto(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">clear</i></button>
                     </td>
                 </tr>
             </tbody>

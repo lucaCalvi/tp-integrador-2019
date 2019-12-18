@@ -48,4 +48,12 @@ export class UsuarioService {
   deleteUsuario(usuario, contraseña): Observable<Object> {
     return this.httpClient.request('delete', this.URL_API + `/${usuario.nombreUsuario}`, {body: {contraseña}})
   }
+
+  agregarContacto(nombreUsuario, contacto): Observable<Object> {
+    return this.httpClient.put(this.URL_API + `/${nombreUsuario}/contactos/agregarContacto`, {contacto});
+  }
+
+  eliminarContacto(nombreUsuario, contacto): Observable<Object> {
+    return this.httpClient.put(this.URL_API + `/${nombreUsuario}/contactos/eliminarContacto`, {contacto});
+  }
 }

@@ -128,7 +128,6 @@ UsuarioController.deleteUsuario = (req, res) => {
     Usuario.findOne({nombreUsuario: nombreUsuario})
         .then(user => {
             if(bcrypt.compareSync(contraseña, user.contraseña)){
-                console.log(contraseña);
                 return Promise.resolve();
             }
             else {
@@ -165,6 +164,37 @@ UsuarioController.searchUsuario = (req, res) => {
       .catch(err => {
           res.status(500).json({error: err.message});
       });
+}
+
+UsuarioController.agregarContacto = (req, res) => {
+    const nombreUsuario = req.params.nombreUsuario;
+    const contacto = req.body.contacto;
+    Usuario.findOne({nombreUsuario: nombreUsuario})
+      .then(usuario => {
+          usuario.contactos.push(contacto);
+          Usuario.findOneAndUpdate({nombreUsuario: nombreUsuario}, {$set: usuario}, () => {
+              res.status(200).json({id: nombreUsuario});
+          });
+      })
+      .catch(err => {
+          res.status(500).json({error: err.message});
+      })
+}
+
+UsuarioController.eliminarContacto = (req, res) => {
+    const nombreUsuario = req.params.nombreUsuario;
+    const contacto = req.body.contacto;
+    Usuario.findOne({nombreUsuario: nombreUsuario})
+      .then(usuario => {
+          let index = usuario.contactos.indexOf(contacto);
+          usuario.contactos.splice(index, 1);
+          Usuario.findOneAndUpdate({nombreUsuario: nombreUsuario}, {$set: usuario}, () => {
+              res.status(200).json({id: nombreUsuario});
+          });
+      })
+      .catch(err => {
+          res.status(500).json({error: err.message});
+      })
 }
 
 module.exports = UsuarioController;
