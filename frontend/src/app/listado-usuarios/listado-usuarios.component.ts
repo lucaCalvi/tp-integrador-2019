@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../services/usuario.service';
-import { Observable, of, empty, from } from 'rxjs';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { Asignacion } from '../models/asignacion';
+import { AsignacionService } from '../services/asignacion.service';
 
 @Component({
   selector: 'app-listado-usuarios',
@@ -15,11 +19,18 @@ export class ListadoUsuariosComponent implements OnInit {
 
   currentUser = localStorage.getItem("USUARIO");
 
-  constructor(private usuarioService: UsuarioService) { }
+  currentTarea: any = null;
+
+  constructor(
+    private usuarioService: UsuarioService, 
+    private route: ActivatedRoute, 
+    private location: Location, 
+    private asignacionService: AsignacionService) { }
 
   ngOnInit() {
     this.getUsuarios();
     this.getUsuario();
+    this.getCurrentTarea();
   }
 
   getUsuarios() {
@@ -36,7 +47,6 @@ export class ListadoUsuariosComponent implements OnInit {
     this.usuarioService.getUsuario(this.currentUser)
       .subscribe(res => {
         this.usuarioSesion = res;
-        console.log(this.usuarioSesion.contactos.includes('juan_perez'));
       },
       err => {
         console.log('Error ', err);
@@ -59,6 +69,41 @@ export class ListadoUsuariosComponent implements OnInit {
 
   eliminarContacto(contacto) {
     this.usuarioService.eliminarContacto(this.currentUser, contacto)
+      .subscribe(() => {
+        this.getUsuario();
+      },
+      err => {
+        console.log('Error ', err);
+      });
+  }
+
+  getCurrentTarea() {
+    if(this.route.snapshot.paramMap.get('idTarea')){
+      this.currentTarea = this.route.snapshot.paramMap.get('idTarea');
+    }
+  }
+
+  goBack() {
+    this.currentTarea = null;
+    this.location.back();
+  }
+
+  asignarTarea(nombreUsuario) {
+    let asignacion = new Asignacion();
+    asignacion.id_tarea = this.currentTarea;
+    asignacion.id_asignado = nombreUsuario;
+    this.asignacionService.asignarTarea(asignacion)
+      .subscribe(() => {
+        this.getUsuario();
+      },
+      err => {
+        console.log('Error ', err);
+      });
+  }
+
+  eliminarAsignacionTarea(nombreUsuario) {
+    let id_tarea = this.currentTarea;
+    this.asignacionService.eliminarAsignacionTarea(nombreUsuario, id_tarea)
       .subscribe(() => {
         this.getUsuario();
       },

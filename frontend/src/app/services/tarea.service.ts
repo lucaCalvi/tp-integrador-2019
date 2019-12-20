@@ -15,7 +15,19 @@ export class TareaService {
     return this.httpClient.get(this.URL_API + `/${nombreUsuario}`);
   }
 
-  deleteTarea(idTarea) {
+  deleteTarea(idTarea): Observable<Object> {
     return this.httpClient.delete(this.URL_API + `/${idTarea}`);
+  }
+
+  insertTarea(tarea): Observable<Object> {
+    return this.httpClient.post(this.URL_API, tarea);
+  }
+
+  getTarea(idTarea): Observable<Object> {
+    return this.httpClient.get(this.URL_API + `/modificar-tarea/${idTarea}`);
+  }
+
+  updateTarea(tarea): Observable<Object> {
+    return this.httpClient.put(this.URL_API + `/${tarea._id}`,  tarea);
   }
 }

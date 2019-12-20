@@ -6,7 +6,6 @@ const Usuario = new mongoose.Schema({
     email: {type: String, required: true},
     nombreUsuario: {type: String, required: true},
     contraseña: {type: String, required: true},
-    etiqueta: {type: Array, required: false},
     informacion: {type: String, required: true},
     contactos: {type: Array, required: false}
 });

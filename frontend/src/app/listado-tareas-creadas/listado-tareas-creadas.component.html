@@ -13,13 +13,12 @@
                         <span class="titulo">Descripcion: </span><span>{{tarea.descripcion}}</span><br>
                         <span class="titulo">Fecha de inicio: </span><span>{{tarea.fechaInicio | date: 'shortDate'}}</span>
                         <span class="titulo">Fecha limite: </span><span>{{tarea.fechaLimite | date: 'shortDate'}}</span><br>
-                        <span class="titulo">Fecha de finalizacion: </span><span>{{tarea.fechaFin | date: 'shortDate'}}</span><span *ngIf="tarea.fechaFin == null">-Sin especificar-</span><br>
-                        <span class="titulo">Lugar: </span><span>{{tarea.lugar}}</span><span *ngIf="tarea.lugar == ''">-Sin especificar-</span>
-                        <span class="titulo">Estado: </span><span>{{tarea.estado}}</span><br>
-                        <span class="titulo">Usuarios asignados: </span><span>{{tarea.id_asignado}}</span>
+                        <span class="titulo">Lugar: </span><span>{{tarea.lugar}}</span><span *ngIf="tarea.lugar == null">-Sin especificar-</span>
+                        <span class="titulo">Usuarios asignados: </span><span>{{tarea.id_asignado}}</span><span *ngIf="tarea.id_asignado == null">-Sin usuarios-</span>
                     </div>
                     <div class="card-action">
-                        <a routerLink="/api/modificar-tarea" class="waves-effect waves-light btn red lighten-1">Modificar</a>
+                        <a routerLink="/api/modificar-tarea/{{tarea._id}}" class="waves-effect waves-light btn red lighten-1">Modificar</a>
+                        <a routerLink="/api/asignar-tarea/{{tarea._id}}" class="waves-effect waves-light btn red lighten-1">Asignar</a>
                         <button class="waves-effect waves-light btn red lighten-1" (click)="deleteTarea(tarea._id)">Eliminar</button>
                     </div>
                 </div>

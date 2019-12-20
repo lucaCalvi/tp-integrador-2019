@@ -8,7 +8,7 @@ router.get('/:nombreUsuario', UsuarioController.getUsuario);
 router.post('/', UsuarioController.insertUsuario);
 router.put('/:nombreUsuario', UsuarioController.updateUsuario);
 router.delete('/:nombreUsuario', UsuarioController.deleteUsuario);
-router.get('/:nombreUsuario/tareas', TareaController.getTareas);
+//router.get('/:nombreUsuario/asignacion', TareaController.getTareas);
 router.get('/:nombreUsuario/tareas/:idTarea', TareaController.getTarea);
 router.get('/search/:nombreUsuario', UsuarioController.searchUsuario);
 router.put('/:nombreUsuario/contactos/agregarContacto', UsuarioController.agregarContacto);

@@ -9,35 +9,21 @@
                     <input type="text" placeholder="Descripcion" [(ngModel)]='descripcion'>
                 </div>
                 <div class="input-field col s6">
-                    <input type="text" placeholder="Fecha de Inicio" [(ngModel)]='fecha_inicio'>
+                    <input type="text" placeholder="Fecha de Inicio" [(ngModel)]='fechaInicio'>
                 </div>
           </div>
           <div class="row">
                 <div class="input-field col s6">
-                    <input type="text" placeholder="Fecha Limite" [(ngModel)]='fecha_limite'>
+                    <input type="text" placeholder="Fecha Limite" [(ngModel)]='fechaLimite'>
                 </div>
                 <div class="input-field col s6">
                     <input type="text" placeholder="Lugar" [(ngModel)]='lugar'>
                 </div>
           </div>
-          <div class="row">
-                <div class="input-field col s12">
-                    <input type="text" placeholder="Usuarios Asignados" [(ngModel)]='asignados'>
-                </div>
-          </div>
-          <div class="row">
-                <div class="input-field col s12">
-                    <input type="text" placeholder="Etiqueta Asignada" [(ngModel)]='asignados'>
-                </div>
-          </div>
-          <div class="row">
-                <div class="input-field col s12">
-                    <input type="text" placeholder="Asignar a Contactos" [(ngModel)]='asignados'>
-                </div>
-          </div>
         </div>
         <div class="card-action">
-          <button class="waves-effect waves-light btn red lighten-1" (click)="insertTarea()">Agregar</button>
+          <button class="waves-effect waves-light btn red lighten-1" (click)="insertTarea()" *ngIf="!currentTarea">Agregar</button>
+          <button class="waves-effect waves-light btn red lighten-1" (click)="updateTarea()" *ngIf="currentTarea">Modificar</button>
           <button class="waves-effect waves-light btn red lighten-1" (click)="resetForm()">Borrar</button>
           <button class="waves-effect waves-light btn red lighten-1" (click)="goBack()">Volver</button>
         </div>

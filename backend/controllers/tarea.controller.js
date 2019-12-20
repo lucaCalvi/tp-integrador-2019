@@ -1,7 +1,7 @@
 const Tarea = require('../models/tarea');
 TareaController = {};
 
-TareaController.getTareas = (req, res) => {
+/*TareaController.getTareas = (req, res) => {
     const nombreUsuario = req.params.nombreUsuario;
     Tarea.find({id_asignado: nombreUsuario})
       .then(tareas => {
@@ -10,7 +10,7 @@ TareaController.getTareas = (req, res) => {
       .catch(err => {
           res.status(500).json({error: err.message});
       });
-}
+}*/
 
 TareaController.getTarea = (req, res) => {
     const idTarea = req.params.idTarea;
@@ -27,11 +27,8 @@ TareaController.insertTarea = (req, res) => {
     const tarea = new Tarea({
         descripcion: req.body.descripcion,
         fechaInicio: req.body.fechaInicio,
-        fechaFin: req.body.fechaFin,
         fechaLimite: req.body.fechaLimite,
         lugar: req.body.lugar,
-        estado: req.body.estado,
-        id_asignado: req.body.id_asignado,
         id_asignador: req.body.id_asignador 
     });
 
@@ -49,12 +46,9 @@ TareaController.updateTarea = (req, res) => {
     const tarea = {
         descripcion: req.body.descripcion,
         fechaInicio: req.body.fechaInicio,
-        fechaFin: req.body.fechaFin,
         fechaLimite: req.body.fechaLimite,
         lugar: req.body.lugar,
-        estado: req.body.estado,
-        id_asignado: req.body.id_asignado,
-        id_asignador: req.body.id_asignador 
+        id_asignador: req.body.id_asignador
     };
 
     Tarea.findByIdAndUpdate(id, {$set: tarea})

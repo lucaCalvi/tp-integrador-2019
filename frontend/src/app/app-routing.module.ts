@@ -21,7 +21,9 @@ const routes: Routes = [
   { path: 'api/configuracionUsuario', component: FormularioComponent, canActivate: [AuthGuard] },
   { path: 'api/login', component: LoginComponent },
   { path: 'api/tareas/:nombreUsuario', component: ListadoTareasCreadasComponent, canActivate: [AuthGuard] },
-  { path: 'api/agregar-tarea', component: FormularioTareaComponent, canActivate: [AuthGuard]}
+  { path: 'api/agregar-tarea', component: FormularioTareaComponent, canActivate: [AuthGuard]},
+  { path: 'api/modificar-tarea/:idTarea', component: FormularioTareaComponent, canActivate: [AuthGuard]},
+  { path: 'api/asignar-tarea/:idTarea', component: ListadoUsuariosComponent, canActivate: [AuthGuard]}
   //{ path: 'api/menu', component: MenuComponent }
 ];
 

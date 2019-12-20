@@ -37,7 +37,6 @@ UsuarioController.insertUsuario = (req, res) => {
         email: req.body.email,
         nombreUsuario: req.body.nombreUsuario,
         contraseña: bcrypt.hashSync(req.body.contraseña),
-        etiqueta: req.body.etiqueta,
         informacion: req.body.informacion,
         contactos: req.body.contactos
     });
@@ -78,7 +77,6 @@ UsuarioController.updateUsuario = (req, res) => {
         email: req.body.email,
         nombreUsuario: req.body.nombreUsuario,
         contraseña: req.body.contraseña,
-        etiqueta: req.body.etiqueta,
         informacion: req.body.informacion,
         contactos: req.body.contactos
     };

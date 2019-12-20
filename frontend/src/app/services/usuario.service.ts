@@ -20,7 +20,7 @@ export class UsuarioService {
   }
 
   getTareas(nombreUsuario): Observable<Object> {
-    return this.httpClient.get(this.URL_API + `/${nombreUsuario}` + '/tareas');
+    return this.httpClient.get(this.URL_API + `/${nombreUsuario}` + '/asignacion');
   }
 
   getTarea(nombreUsuario, idTarea): Observable<Object> {

@@ -11,9 +11,10 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Usuario</th>
-                    <th>Tareas</th>
-                    <th>Detalle</th>
-                    <th>Contacto</th>
+                    <th *ngIf="currentTarea == null">Tareas</th>
+                    <th *ngIf="currentTarea == null">Detalle</th>
+                    <th *ngIf="currentTarea == null">Contacto</th>
+                    <th *ngIf="currentTarea != null">Asignar</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,20 +22,29 @@
                     <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.nombre}}</td>
                     <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.apellido}}</td> 
                     <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.nombreUsuario}}</td>
-                    <td *ngIf="usuario.nombreUsuario != currentUser">
+                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea == null">
                         <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/tareas" class="btn-floating waves-effect waves-light red"><i class="material-icons">event_note</i></a>
                     </td>
-                    <td *ngIf="usuario.nombreUsuario != currentUser">
+                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea == null">
                         <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
                     </td>
-                    <td *ngIf="!usuarioSesion.contactos.includes(usuario.nombreUsuario) && usuario.nombreUsuario != currentUser">
+                    <td *ngIf="!usuarioSesion.contactos.includes(usuario.nombreUsuario) && usuario.nombreUsuario != currentUser && currentTarea == null">
                         <button (click)="agregarContacto(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">add</i></button>
                     </td>
-                    <td *ngIf="usuarioSesion.contactos.includes(usuario.nombreUsuario) && usuario.nombreUsuario != currentUser">
+                    <td *ngIf="usuarioSesion.contactos.includes(usuario.nombreUsuario) && usuario.nombreUsuario != currentUser && currentTarea == null">
                         <button (click)="eliminarContacto(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">clear</i></button>
+                    </td>
+                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea != null">
+                        <button (click)="asignarTarea(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">check</i></button>
+                    </td>
+                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea != null">
+                        <button (click)="eliminarAsignacionTarea(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">clear</i></button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+</div>
+<div *ngIf="currentTarea != null">
+    <button class="waves-effect waves-light btn red" (click)="goBack()">Volver</button>
 </div>
