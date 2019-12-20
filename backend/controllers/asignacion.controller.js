@@ -1,4 +1,5 @@
 const Asignacion = require('../models/asignacion');
+const Tarea = require('../models/tarea');
 AsignacionController = {};
 
 AsignacionController.asignarTarea = (req, res) => {
@@ -46,11 +47,56 @@ AsignacionController.eliminarAsignacionTarea = (req, res) => {
       });
 }*/
 
-TareaController.getTareas = (req, res) => {
+AsignacionController.getAsignaciones = async (req, res) => {
+    let tareas = [];
     const nombreUsuario = req.params.nombreUsuario;
-    Tarea.find({id_asignado: nombreUsuario})
-      .then(tareas => {
-          res.status(200).json(tareas);
+    Asignacion.find({id_asignado: nombreUsuario})
+      .then(asignaciones => {
+        asignaciones.forEach(asignacion => {
+            Tarea.findOne({_id: asignacion.id_tarea})
+              .then(tarea => {
+                tareas.push({
+                    _id: asignacion.id_tarea,
+                    descripcion: tarea.descripcion,
+                    fechaInicio: tarea.fechaInicio,
+                    fechaLimite: tarea.fechaLimite,
+                    lugar: tarea.lugar,
+                    id_asignador: tarea.id_asignador,
+                    id_asignado: asignacion.id_asignado,
+                    fechaFin: asignacion.fechaFin,
+                    estado: asignacion.estado
+                });
+                asignaciones.splice(0, 1);
+                if(asignaciones.length == 0){
+                    res.status(200).json(tareas);
+                }
+            });
+        });
+      })
+      .catch(err => {
+          res.status(500).json({error: err.message});
+      });
+}
+
+AsignacionController.getAsignacion = (req, res) => {
+    const id_tarea = req.params.idTarea;
+    const nombreUsuario = req.params.nombreUsuario;
+    Asignacion.find({id_tarea: id_tarea, id_asignado: nombreUsuario})
+      .then(asignacion => {
+          Tarea.findOne({id_tarea: asignacion.id_tarea})
+            .then(tarea => {
+                res.status(200).json({
+                    _id: asignacion.id_tarea,
+                    descripcion: tarea.descripcion,
+                    fechaInicio: tarea.fechaInicio,
+                    fechaLimite: tarea.fechaLimite,
+                    lugar: tarea.lugar,
+                    id_asignador: tarea.id_asignador,
+                    id_asignado: asignacion.id_asignado,
+                    fechaFin: asignacion.fechaFin,
+                    estado: asignacion.estado
+                });
+            })
       })
       .catch(err => {
           res.status(500).json({error: err.message});

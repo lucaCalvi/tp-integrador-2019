@@ -1,17 +1,6 @@
 const Tarea = require('../models/tarea');
 TareaController = {};
 
-/*TareaController.getTareas = (req, res) => {
-    const nombreUsuario = req.params.nombreUsuario;
-    Tarea.find({id_asignado: nombreUsuario})
-      .then(tareas => {
-          res.status(200).json(tareas);
-      })
-      .catch(err => {
-          res.status(500).json({error: err.message});
-      });
-}*/
-
 TareaController.getTarea = (req, res) => {
     const idTarea = req.params.idTarea;
     Tarea.findById(idTarea)
