@@ -11,8 +11,8 @@
                 <div class="card red lighten-1 card z-depth-4">
                     <div class="card-content white-text">
                         <span class="titulo">Descripcion: </span><span>{{tarea.descripcion}}</span><br>
-                        <span class="titulo">Fecha de inicio: </span><span>{{tarea.fechaInicio | date: 'shortDate'}}</span>
-                        <span class="titulo">Fecha limite: </span><span>{{tarea.fechaLimite | date: 'shortDate'}}</span><br>
+                        <span class="titulo">Fecha de inicio: </span><span>{{tarea.fechaInicio | date: 'dd/MM/yyyy'}}</span>
+                        <span class="titulo">Fecha limite: </span><span>{{tarea.fechaLimite | date: 'dd/MM/yyyy'}}</span><br>
                         <span class="titulo">Lugar: </span><span>{{tarea.lugar}}</span><span *ngIf="tarea.lugar == null">-Sin especificar-</span>
                         <span class="titulo">Usuarios asignados: </span><span>{{tarea.id_asignado}}</span><span *ngIf="tarea.id_asignado == null">-Sin usuarios-</span>
                     </div>

@@ -16,7 +16,7 @@
         <tbody>
             <tr *ngFor="let tarea of tareas">
                 <td>{{tarea.descripcion}}</td>
-                <td>{{tarea.fechaInicio | date: 'shortDate'}}</td>
+                <td>{{tarea.fechaInicio | date: 'dd/MM/yyyy'}}</td>
                 <td>{{tarea.estado}}</td>
                 <td>
                     <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/tareas/{{tarea._id}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>

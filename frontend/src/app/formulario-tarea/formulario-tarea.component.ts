@@ -59,20 +59,44 @@ export class FormularioTareaComponent implements OnInit {
 
   loadTarea() {
     this.tarea.descripcion = this.descripcion;
-    this.tarea.fechaInicio = this.fechaInicio;
-    this.tarea.fechaLimite = this.fechaLimite;
+    let dateInicio = new Date(this.fechaInicio).getDate() + 1;
+    let monthInicio = new Date(this.fechaInicio).getMonth() + 1;
+    if(monthInicio > 9) {
+      dateInicio = dateInicio + 1;
+    }
+    let yearInicio = new Date(this.fechaInicio).getFullYear();
+    this.tarea.fechaInicio = new Date(yearInicio + '-' + monthInicio + '-' + dateInicio);
+    let dateLimite = new Date(this.fechaLimite).getDate() + 1;
+    let monthLimite = new Date(this.fechaLimite).getMonth() + 1;
+    if(monthLimite > 9) {
+      dateLimite = dateLimite + 1;
+    }
+    let yearLimite = new Date(this.fechaLimite).getFullYear();
+    this.tarea.fechaLimite = new Date(yearLimite + '-' + monthLimite + '-' + dateLimite);
     this.tarea.lugar = this.lugar;
     this.tarea.id_asignador = this.currentUserName;
   }
 
   loadForm() {
     this.descripcion = this.tarea.descripcion;
-    let dateInicio = new Date(this.tarea.fechaInicio).getDate() + 1;
-    let monthInicio = new Date(this.tarea.fechaInicio).getMonth() + 1;
+    let dateInicio = (new Date(this.tarea.fechaInicio).getDate()).toString();
+    if(dateInicio.length < 2) {
+      dateInicio = '0' + dateInicio;
+    }
+    let monthInicio = (new Date(this.tarea.fechaInicio).getMonth() + 1).toString();
+    if(monthInicio.length < 2) {
+      monthInicio = '0' + monthInicio;
+    }
     let yearInicio = new Date(this.tarea.fechaInicio).getFullYear();
     this.fechaInicio = yearInicio + '-' + monthInicio + '-' + dateInicio;
-    let dateLimite = new Date(this.tarea.fechaLimite).getDate() + 1;
-    let monthLimite = new Date(this.tarea.fechaLimite).getMonth() + 1;
+    let dateLimite = (new Date(this.tarea.fechaLimite).getDate()).toString();
+    if(dateLimite.length < 2) {
+      dateLimite = '0' + dateLimite;
+    }
+    let monthLimite = (new Date(this.tarea.fechaLimite).getMonth() + 1).toString();
+    if(monthLimite.length < 2) {
+      monthLimite = '0' + monthLimite;
+    }
     let yearLimite = new Date(this.tarea.fechaLimite).getFullYear();
     this.fechaLimite = yearLimite + '-' + monthLimite + '-' + dateLimite;
     this.lugar = this.tarea.lugar;
@@ -80,8 +104,8 @@ export class FormularioTareaComponent implements OnInit {
 
   resetForm() {
     this.descripcion = '';
-    this.fechaInicio = '';
-    this.fechaLimite = '';
+    this.fechaInicio = null;
+    this.fechaLimite = null;
     this.lugar = '';
   }
 
