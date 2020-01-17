@@ -52,26 +52,32 @@ AsignacionController.getAsignaciones = async (req, res) => {
     const nombreUsuario = req.params.nombreUsuario;
     Asignacion.find({id_asignado: nombreUsuario})
       .then(asignaciones => {
-        asignaciones.forEach(asignacion => {
-            Tarea.findOne({_id: asignacion.id_tarea})
-              .then(tarea => {
-                tareas.push({
-                    _id: asignacion.id_tarea,
-                    descripcion: tarea.descripcion,
-                    fechaInicio: tarea.fechaInicio,
-                    fechaLimite: tarea.fechaLimite,
-                    lugar: tarea.lugar,
-                    id_asignador: tarea.id_asignador,
-                    id_asignado: asignacion.id_asignado,
-                    fechaFin: asignacion.fechaFin,
-                    estado: asignacion.estado
+        if(asignaciones.length > 0) {
+            asignaciones.forEach(asignacion => {
+                Tarea.findOne({_id: asignacion.id_tarea})
+                .then(tarea => {
+                    tareas.push({
+                        _id: asignacion.id_tarea,
+                        descripcion: tarea.descripcion,
+                        fechaInicio: tarea.fechaInicio,
+                        fechaLimite: tarea.fechaLimite,
+                        lugar: tarea.lugar,
+                        id_asignador: tarea.id_asignador,
+                        id_asignado: asignacion.id_asignado,
+                        fechaFin: asignacion.fechaFin,
+                        estado: asignacion.estado
+                    });
+                    asignaciones.splice(0, 1);
+                    if(asignaciones.length == 0){
+                        res.status(200).json(tareas);
+                    }
                 });
-                asignaciones.splice(0, 1);
-                if(asignaciones.length == 0){
-                    res.status(200).json(tareas);
-                }
             });
-        });
+        }
+        else {
+            console.log('Hola');
+            res.status(200).json(null);
+        }
       })
       .catch(err => {
           res.status(500).json({error: err.message});
