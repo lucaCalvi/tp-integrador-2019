@@ -47,7 +47,7 @@ AsignacionController.eliminarAsignacionTarea = (req, res) => {
       });
 }*/
 
-AsignacionController.getAsignaciones = async (req, res) => {
+AsignacionController.getAsignaciones = (req, res) => {
     let tareas = [];
     const nombreUsuario = req.params.nombreUsuario;
     Asignacion.find({id_asignado: nombreUsuario})
@@ -75,7 +75,6 @@ AsignacionController.getAsignaciones = async (req, res) => {
             });
         }
         else {
-            console.log('Hola');
             res.status(200).json(null);
         }
       })
@@ -107,6 +106,17 @@ AsignacionController.getAsignacion = (req, res) => {
       .catch(err => {
           res.status(500).json({error: err.message});
       });
+}
+
+AsignacionController.getAsignacionesTarea = (req, res) => {
+    const id_tarea = req.params.idTarea;
+    Asignacion.find({id_tarea: id_tarea})
+      .then(asignaciones => {
+          res.status(200).json(asignaciones);
+      })
+      .catch(err => {
+          res.status(500).json({error: err.message});
+    });
 }
 
 module.exports = AsignacionController;

@@ -19,6 +19,10 @@ export class AsignacionService {
     return this.httpClient.request('delete', this.URL_API + `/${id_tarea}`, {body: {nombreUsuario}});
   }
 
+  getAsignacionesTarea(id_tarea): Observable<Object> {
+    return this.httpClient.get(this.URL_API + `/${id_tarea}`);
+  }
+
   /*cambiarEstado(asignacion): Observable<Object> {
     return this.httpClient.put(this.URL_API + `/${asignacion.id_tarea}`, asignacion);
   }*/

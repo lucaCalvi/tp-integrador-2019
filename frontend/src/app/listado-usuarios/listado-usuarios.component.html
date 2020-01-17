@@ -34,10 +34,10 @@
                     <td *ngIf="usuarioSesion.contactos.includes(usuario.nombreUsuario) && usuario.nombreUsuario != currentUser && currentTarea == null">
                         <button (click)="eliminarContacto(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">clear</i></button>
                     </td>
-                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea != null">
+                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea != null && !(usuariosAsignados.includes(usuario.nombreUsuario))">
                         <button (click)="asignarTarea(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">check</i></button>
                     </td>
-                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea != null">
+                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea != null && usuariosAsignados.includes(usuario.nombreUsuario)">
                         <button (click)="eliminarAsignacionTarea(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">clear</i></button>
                     </td>
                 </tr>

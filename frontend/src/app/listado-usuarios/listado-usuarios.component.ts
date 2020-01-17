@@ -21,6 +21,10 @@ export class ListadoUsuariosComponent implements OnInit {
 
   currentTarea: any = null;
 
+  asignacionesTarea = null;
+
+  usuariosAsignados = null;
+
   constructor(
     private usuarioService: UsuarioService, 
     private route: ActivatedRoute, 
@@ -80,6 +84,7 @@ export class ListadoUsuariosComponent implements OnInit {
   getCurrentTarea() {
     if(this.route.snapshot.paramMap.get('idTarea')){
       this.currentTarea = this.route.snapshot.paramMap.get('idTarea');
+      this.getAsignaciones();
     }
   }
 
@@ -95,6 +100,7 @@ export class ListadoUsuariosComponent implements OnInit {
     this.asignacionService.asignarTarea(asignacion)
       .subscribe(() => {
         this.getUsuario();
+        this.getAsignaciones();
       },
       err => {
         console.log('Error ', err);
@@ -106,6 +112,22 @@ export class ListadoUsuariosComponent implements OnInit {
     this.asignacionService.eliminarAsignacionTarea(nombreUsuario, id_tarea)
       .subscribe(() => {
         this.getUsuario();
+        this.getAsignaciones();
+      },
+      err => {
+        console.log('Error ', err);
+      });
+  }
+
+  getAsignaciones() {
+    this.asignacionService.getAsignacionesTarea(this.currentTarea)
+      .subscribe(asignaciones => {
+        this.asignacionesTarea = asignaciones;
+        this.usuariosAsignados = [];
+        this.asignacionesTarea.forEach(asignacion => {
+          this.usuariosAsignados.push(asignacion.id_asignado);
+        });
+        console.log(this.usuariosAsignados);
       },
       err => {
         console.log('Error ', err);
