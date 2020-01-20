@@ -127,10 +127,17 @@ export class ListadoUsuariosComponent implements OnInit {
         this.asignacionesTarea.forEach(asignacion => {
           this.usuariosAsignados.push(asignacion.id_asignado);
         });
-        console.log(this.usuariosAsignados);
       },
       err => {
         console.log('Error ', err);
       });
+  }
+
+  asignarContactos() {
+    this.usuarioSesion.contactos.forEach(contacto => {
+      if(!this.usuariosAsignados.includes(contacto)) {
+        this.asignarTarea(contacto);
+      }
+    });
   }
 }

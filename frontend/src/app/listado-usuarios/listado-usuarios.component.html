@@ -5,6 +5,9 @@
 <div class="container">
     <div>
         <app-search-box (listUsuarios)="updateList($event)"></app-search-box>
+        <div *ngIf="currentTarea != null">
+            <button class="waves-effect waves-light btn-large red" (click)="asignarContactos()">Asignar a todos los Contactos</button>
+        </div>
         <table class="striped">
             <thead>
                 <tr>
