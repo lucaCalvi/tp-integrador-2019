@@ -31,22 +31,6 @@ AsignacionController.eliminarAsignacionTarea = (req, res) => {
       });
 }
 
-/*AsignacionController.cambiarEstado = (req, res) => {
-    const idTarea = req.params.idTarea;
-    const asignacion = {
-        fechaFin: null,
-        estado: req.body.estado
-    };
-
-    Asignacion.findByIdAndUpdate(id, {$set: tarea})
-      .then(() => {
-          res.status(200).json({id: id});
-      })
-      .catch(err => {
-          res.status(500).json({error: err.message});
-      });
-}*/
-
 AsignacionController.getAsignaciones = (req, res) => {
     let tareas = [];
     const nombreUsuario = req.params.nombreUsuario;
@@ -117,6 +101,25 @@ AsignacionController.getAsignacionesTarea = (req, res) => {
       .catch(err => {
           res.status(500).json({error: err.message});
     });
+}
+
+AsignacionController.cambiarEstado = (req, res) => {
+    const idTarea = req.params.idTarea;
+    const nombreUsuario = req.params.nombreUsuario;
+    const asignacion = {
+        estado: req.body.estado,
+        fechaFin: req.body.fechaFin,
+        id_tarea: req.body.id_tarea,
+        id_asignado: req.body.id_asignado
+    };
+
+    Asignacion.findOneAndUpdate({id_tarea: idTarea, id_asignado: nombreUsuario}, {$set: asignacion})
+      .then(() => {
+          res.status(200).json({id: idTarea});
+      })
+      .catch(err => {
+          res.status(500).json({error: err.message});
+      });
 }
 
 module.exports = AsignacionController;

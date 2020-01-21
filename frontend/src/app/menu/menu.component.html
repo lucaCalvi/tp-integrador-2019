@@ -4,9 +4,9 @@
       <ul id="nav-mobile" class="left hide-on-med-and-down">
         <li><a routerLink="/api/usuarios" *ngIf="isLogged">Listado Usuarios</a></li>
         <li><a routerLink="/api/agregar-usuario" *ngIf="!isLogged">Registrar</a></li>
-        <li><a routerLink="/api/tareas/{{currentUser}}" *ngIf="isLogged">Mis tareas</a></li><!--tareas creadas por usuario + crear y asignar tarea (uno a uno y a todos los contactos)-->
-        <li><a routerLink="/api/usuarios/{{currentUser}}/tareas" *ngIf="isLogged">Tareas pendientes</a></li><!--tareas asignadas al usuario + completar tarea-->
-        <li><a routerLink="/api/usuarios/{{currentUser}}/tareas-completas" *ngIf="isLogged">Tareas completas</a></li><!--tareas asignadas al usuarios completas-->
+        <li><a routerLink="/api/tareas/{{currentUser}}" *ngIf="isLogged">Mis tareas</a></li>
+        <li><a routerLink="/api/usuarios/{{currentUser}}/tareas-pendientes/pendientes" *ngIf="isLogged">Tareas pendientes</a></li><!--tareas asignadas al usuario + completar tarea-->
+        <li><a routerLink="/api/usuarios/{{currentUser}}/tareas-completas/completas" *ngIf="isLogged">Tareas completas</a></li><!--tareas asignadas al usuarios completas-->
       </ul>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a routerLink="/api/configuracionUsuario" *ngIf="isLogged">Configuracion de Usuario</a></li>

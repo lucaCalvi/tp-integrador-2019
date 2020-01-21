@@ -3,7 +3,8 @@
     <h3>Tareas asignadas a {{usuario.nombre}} {{usuario.apellido}}</h3>
 </div>
 <div class="container">
-    <h5 *ngIf="tareas == null">No existen Tareas asignadas</h5>
+    <h5 *ngIf="tareas == null && nombreUsuario != currentUser">No existen Tareas asignadas</h5>
+    <h5 *ngIf="tareas == null && nombreUsuario == currentUser">No existen Tareas {{estado}}</h5>
     <table class="striped" *ngIf="tareas != null">
         <thead>
             <tr>
@@ -11,6 +12,7 @@
                 <th>Fecha de inicio</th>
                 <th>Estado</th>
                 <th>Detalle</th>
+                <th *ngIf="nombreUsuario == currentUser && estado == 'pendientes'">Marcar como completa</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +22,9 @@
                 <td>{{tarea.estado}}</td>
                 <td>
                     <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/tareas/{{tarea._id}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
+                </td>
+                <td *ngIf="nombreUsuario == currentUser && estado == 'pendientes'">
+                    <button class="btn-floating waves-effect waves-light red" (click)="cambiarEstado(currentUser, tarea._id, 'Completa')"><i class="material-icons">check</i></button>
                 </td>
             </tr>
         </tbody>

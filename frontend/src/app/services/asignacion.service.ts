@@ -23,7 +23,7 @@ export class AsignacionService {
     return this.httpClient.get(this.URL_API + `/${id_tarea}`);
   }
 
-  /*cambiarEstado(asignacion): Observable<Object> {
-    return this.httpClient.put(this.URL_API + `/${asignacion.id_tarea}`, asignacion);
-  }*/
+  cambiarEstado(asignacion): Observable<Object> {
+    return this.httpClient.put(this.URL_API + `/${asignacion.id_asignado}` + `/${asignacion.id_tarea}`, asignacion);
+  }
 }
