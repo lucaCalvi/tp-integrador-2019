@@ -32,16 +32,14 @@ export class ListadoTareasAsignadasComponent implements OnInit {
     this.usuarioService.getTareas(this.nombreUsuario)
       .subscribe(res => {
         this.tareas = res;
-        if(this.tareas) {
+        if(this.tareas){
           if(this.estado == 'pendientes'){
             let aux = [];
-            if(this.tareas){
-              this.tareas.forEach(tarea => {
-                if(tarea.estado == 'Pendiente'){
-                  aux.push(tarea);
-                }
-              });
-            }
+            this.tareas.forEach(tarea => {
+              if(tarea.estado == 'Pendiente'){
+                aux.push(tarea);
+              }
+            });
             if(aux.length > 0){
               this.tareas = aux;
             }
@@ -51,20 +49,21 @@ export class ListadoTareasAsignadasComponent implements OnInit {
           }
           if(this.estado == 'completas'){
             let aux = [];
-            if(this.tareas){
-              this.tareas.forEach(tarea => {
-                if(tarea.estado == 'Completa'){
-                  aux.push(tarea);
-                }
-              });
-            }
+            this.tareas.forEach(tarea => {
+              if(tarea.estado == 'Completa'){
+                aux.push(tarea);
+              }
+            });
             if(aux.length > 0){
               this.tareas = aux;
             }
+            else {
+              this.tareas = null;
+            }
+          }
         }
         else {
           this.tareas = null;
-        }
         }
         this.getUsuario();
       },
