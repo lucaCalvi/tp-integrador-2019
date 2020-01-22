@@ -5,9 +5,6 @@ const bcrypt = require('bcryptjs');
 const SECRET_KEY = 'secretkey1234';
 UsuarioController = {};
 
-//NO USAR ID MONGO, usar nombre de usuario para las usaurio y un id generado para tareas
-//Verificar consistencia de cambio en usuario, tarea queda con ID mongo
-
 UsuarioController.getUsuarios = (req, res) => {
     Usuario.find()
       .then(usuarios => {

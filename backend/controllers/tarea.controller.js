@@ -1,4 +1,5 @@
 const Tarea = require('../models/tarea');
+const Asignacion = require('../models/asignacion');
 TareaController = {};
 
 TareaController.getTarea = (req, res) => {
@@ -53,7 +54,10 @@ TareaController.deleteTarea = (req, res) => {
     const id = req.params.id;
     Tarea.findByIdAndRemove(id)
       .then(() => {
-          res.status(200).json({id: id});
+          Asignacion.deleteMany({id_tarea: id})
+            .then(() => {
+                res.status(200).json({id: id});
+            })
       })
       .catch(err => {
           res.status(500).json({error: err.message});

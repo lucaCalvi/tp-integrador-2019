@@ -70,9 +70,9 @@ AsignacionController.getAsignaciones = (req, res) => {
 AsignacionController.getAsignacion = (req, res) => {
     const id_tarea = req.params.idTarea;
     const nombreUsuario = req.params.nombreUsuario;
-    Asignacion.find({id_tarea: id_tarea, id_asignado: nombreUsuario})
+    Asignacion.findOne({id_tarea: id_tarea, id_asignado: nombreUsuario})
       .then(asignacion => {
-          Tarea.findOne({id_tarea: asignacion.id_tarea})
+          Tarea.findOne({_id: asignacion.id_tarea})
             .then(tarea => {
                 res.status(200).json({
                     _id: asignacion.id_tarea,
