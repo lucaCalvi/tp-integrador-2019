@@ -12,3 +12,7 @@ button {
 input {
     color: white;
 }
+
+p.error {
+    color: white;
+}

@@ -5,6 +5,7 @@ import { Usuario } from '../models/usuario';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { isNullOrUndefined } from 'util';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-formulario',
@@ -15,14 +16,11 @@ export class FormularioComponent implements OnInit {
 
   usuario = null;
 
-  nombre = null;
-  apellido = null;
-  nombreUsuario = null;
-  contrasenia = null;
-  email = null;
-  informacion = null;
+  form: FormGroup;
 
   currentUserName = null;
+
+  err = null;
 
   constructor(
     private location: Location, 
@@ -31,6 +29,15 @@ export class FormularioComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      nombre: new FormControl('', Validators.required),
+      apellido: new FormControl('', Validators.required),
+      nombreUsuario: new FormControl('', Validators.required),
+      contrasenia: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      informacion: new FormControl('', Validators.required)
+    });
+
     this.currentUserName = this.authService.getUser();
     if(this.currentUserName) {
       this.usuarioService.getUsuario(this.currentUserName)
@@ -58,29 +65,30 @@ export class FormularioComponent implements OnInit {
   }
 
   loadUsuario() {
-    this.usuario.nombre = this.nombre;
-    this.usuario.apellido = this.apellido;
-    this.usuario.email = this.email;
-    this.usuario.nombreUsuario = this.nombreUsuario;
-    this.usuario.contraseña = this.contrasenia;
-    this.usuario.informacion = this.informacion;
+    this.usuario.nombre = this.form.controls.nombre.value;
+    this.usuario.apellido = this.form.controls.apellido.value;
+    this.usuario.email = this.form.controls.email.value;
+    this.usuario.nombreUsuario = this.form.controls.nombreUsuario.value;
+    this.usuario.contraseña = this.form.controls.contrasenia.value;
+    this.usuario.informacion = this.form.controls.informacion.value;
   }
 
   loadForm() {
-    this.nombre = this.usuario.nombre;
-    this.apellido = this.usuario.apellido;
-    this.email = this.usuario.email;
-    this.nombreUsuario = this.usuario.nombreUsuario;
-    this.informacion = this.usuario.informacion;
+    this.form.controls.nombre.setValue(this.usuario.nombre);
+    this.form.controls.apellido.setValue(this.usuario.apellido);
+    this.form.controls.email.setValue(this.usuario.email);
+    this.form.controls.nombreUsuario.setValue(this.usuario.nombreUsuario);
+    this.form.controls.informacion.setValue(this.usuario.informacion);
   }
 
   resetForm() {
-    this.nombre = '';
-    this.apellido = '';
-    this.email = '';
-    this.nombreUsuario = '';
-    this.contrasenia = '';
-    this.informacion = '';
+    this.form.controls.nombre.setValue(null);
+    this.form.controls.apellido.setValue(null);
+    this.form.controls.email.setValue(null);
+    this.form.controls.nombreUsuario.setValue(null);
+    this.form.controls.contrasenia.setValue(null);
+    this.form.controls.informacion.setValue(null);
+    this.err = null;
   }
 
   goBack() {
@@ -94,20 +102,22 @@ export class FormularioComponent implements OnInit {
       this.goBack();
     },
     err => {
+      this.err = err.error.error;
       console.log('Error ', err);
     });
   }
 
   deleteUsuario() {
-    if(isNullOrUndefined(this.contrasenia)) {
-      this.contrasenia = '';
+    if(isNullOrUndefined(this.form.controls.contrasenia.value)) {
+      this.form.controls.contrasenia.setValue(null);
     }
-    this.usuarioService.deleteUsuario(this.usuario, this.contrasenia)
+    this.usuarioService.deleteUsuario(this.usuario, this.form.controls.contrasenia.value)
     .subscribe(() => {
       this.authService.logout();
       this.router.navigateByUrl('/api/login');
     },
     err => {
+      this.err = err.error.error;
       console.log('Error ', err);
     });
   }

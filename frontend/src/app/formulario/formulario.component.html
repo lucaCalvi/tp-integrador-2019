@@ -2,40 +2,50 @@
 <div class="row">
     <div class="col s12 m12">
       <div class="card red lighten-1 card z-depth-4">
+        <form [formGroup]="form">
         <div class="card-content white-text">
           <span class="card-title">Formulario Usuario</span>
-          <div class="row">
-                <div class="input-field col s6">
-                    <input type="text" placeholder="Nombre" [(ngModel)]='nombre'>
-                </div>
-                <div class="input-field col s6">
-                    <input type="text" placeholder="Apellido" [(ngModel)]='apellido'>
-                </div>
+            <div class="row">
+                  <div class="input-field col s6">
+                      <input type="text" id="nombre" placeholder="Nombre" formControlName="nombre" autocomplete="off">
+                      <label for="nombre" class="active" *ngIf="form.get('nombre').hasError('required')">*Obligatorio</label>
+                  </div>
+                  <div class="input-field col s6">
+                      <input type="text" id="apellido" placeholder="Apellido" formControlName="apellido" autocomplete="off">
+                      <label for="apellido" class="active" *ngIf="form.get('apellido').hasError('required')">*Obligatorio</label>
+                  </div>
+            </div>
+            <div class="row">
+                  <div class="input-field col s6">
+                      <input type="text" id="nombreUsuario" placeholder="Nombre de Usuario" formControlName="nombreUsuario" autocomplete="off">
+                      <label for="nombreUsuario" class="active" *ngIf="form.get('nombreUsuario').hasError('required')">*Obligatorio</label>
+                  </div>
+                  <div class="input-field col s6">
+                      <input type="password" id="contrasenia" placeholder="Contraseña" formControlName="contrasenia" autocomplete="off">
+                      <label for="contrasenia" class="active" *ngIf="form.get('contrasenia').hasError('required')">*Obligatorio</label>
+                  </div>
+            </div>
+            <div class="row">
+                  <div class="input-field col s6">
+                      <input type="text" id="email" placeholder="Email" formControlName="email" autocomplete="off">
+                      <label for="email" class="active" *ngIf="form.get('email').hasError('required')">*Obligatorio</label>
+                  </div>
+                  <div class="input-field col s6">
+                      <input type="text" id="informacion" placeholder="Informacion" formControlName="informacion" autocomplete="off">
+                      <label for="informacion" class="active" *ngIf="form.get('informacion').hasError('required')">*Obligatorio</label>
+                  </div>
+            </div>
+            <p class="error" *ngIf="err == 'Contraseña incorrecta'">*Contraseña incorrecta</p>
+            <p class="error" *ngIf="form.get('email').hasError('email')">*Email inválido</p>
           </div>
-          <div class="row">
-                <div class="input-field col s6">
-                    <input type="text" placeholder="Nombre de Usuario" [(ngModel)]='nombreUsuario'>
-                </div>
-                <div class="input-field col s6">
-                    <input type="password" placeholder="Contraseña" [(ngModel)]='contrasenia'>
-                </div>
+          <div class="card-action">
+            <button class="waves-effect waves-light btn red lighten-1" (click)="insertUsuario()" *ngIf="!usuario" [disabled]="form.invalid">Agregar</button>
+            <button class="waves-effect waves-light btn red lighten-1" (click)="updateUsuario()" *ngIf="usuario" [disabled]="form.invalid">Modificar</button>
+            <button class="waves-effect waves-light btn red lighten-1" (click)="deleteUsuario()" *ngIf="usuario" [disabled]="form.invalid">Eliminar</button>
+            <button class="waves-effect waves-light btn red lighten-1" (click)="resetForm()">Borrar</button>
+            <button class="waves-effect waves-light btn red lighten-1" (click)="goBack()">Volver</button>
           </div>
-          <div class="row">
-                <div class="input-field col s6">
-                    <input type="text" placeholder="Email" [(ngModel)]='email'>
-                </div>
-                <div class="input-field col s6">
-                    <input type="text" placeholder="Informacion" [(ngModel)]='informacion'>
-                </div>
-          </div>
-        </div>
-        <div class="card-action">
-          <button class="waves-effect waves-light btn red lighten-1" (click)="insertUsuario()" *ngIf="!usuario">Agregar</button>
-          <button class="waves-effect waves-light btn red lighten-1" (click)="updateUsuario()" *ngIf="usuario">Modificar</button>
-          <button class="waves-effect waves-light btn red lighten-1" (click)="deleteUsuario()" *ngIf="usuario">Eliminar</button>
-          <button class="waves-effect waves-light btn red lighten-1" (click)="resetForm()">Borrar</button>
-          <button class="waves-effect waves-light btn red lighten-1" (click)="goBack()">Volver</button>
-        </div>
+        </form>
       </div>
     </div>
 </div>
