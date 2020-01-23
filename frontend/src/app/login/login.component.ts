@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,16 +10,28 @@ import { AuthService } from '../auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  frmLogin: FormGroup;
+  err = null;
+
+  constructor(private authService: AuthService, private router: Router, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.frmLogin = new FormGroup({
+      nombreUsuario: new FormControl(''),
+      contraseña: new FormControl('')
+    });
+
     this.authService.logout();
   }
 
   login(form) {
     this.authService.login(form.value).subscribe( res => {
       this.router.navigateByUrl('/api/usuarios');
-    })
+    },
+    err => {
+      this.err = err.error.error;
+      console.log('Error ', err);
+    });
   }
 
 }

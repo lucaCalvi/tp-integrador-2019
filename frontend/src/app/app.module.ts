@@ -7,7 +7,7 @@ import { ListadoUsuariosComponent } from './listado-usuarios/listado-usuarios.co
 import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { ListadoTareasAsignadasComponent } from './listado-tareas-asignadas/listado-tareas-asignadas.component';
 import { DetalleTareaComponent } from './detalle-tarea/detalle-tarea.component';
@@ -35,7 +35,8 @@ import { FormularioTareaComponent } from './formulario-tarea/formulario-tarea.co
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
