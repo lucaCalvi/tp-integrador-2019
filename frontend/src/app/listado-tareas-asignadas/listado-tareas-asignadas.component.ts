@@ -25,6 +25,7 @@ export class ListadoTareasAsignadasComponent implements OnInit {
     private asignacionService: AsignacionService) { }
 
   ngOnInit() {
+    this.getUsuario();
     this.getTareas();
   }
 
@@ -65,7 +66,6 @@ export class ListadoTareasAsignadasComponent implements OnInit {
         else {
           this.tareas = null;
         }
-        this.getUsuario();
       },
       err => {
         console.log('Error ', err);

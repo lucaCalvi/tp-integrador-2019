@@ -1,5 +1,6 @@
 const Usuario = require('../models/usuario');
 const Tarea = require('../models/tarea');
+const Asignacion = require('../models/asignacion');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const SECRET_KEY = 'secretkey1234';
@@ -95,7 +96,7 @@ UsuarioController.updateUsuario = (req, res) => {
             }
             return Promise.resolve();
         })
-        .then(() => Usuario.findOne({nombreUsuario: usuario.nombreUsuario})
+        .then(() => Usuario.findOne({nombreUsuario: nombreUsuario})
           .then(user => {
             if(bcrypt.compareSync(usuario.contraseña, user.contraseña)){
                 usuario.contraseña = user.contraseña;
@@ -120,6 +121,7 @@ UsuarioController.updateUsuario = (req, res) => {
 UsuarioController.deleteUsuario = (req, res) => {
     const nombreUsuario = req.params.nombreUsuario;
     const contraseña = req.body.contraseña;
+    //var tareas = null;
     Usuario.findOne({nombreUsuario: nombreUsuario})
         .then(user => {
             if(bcrypt.compareSync(contraseña, user.contraseña)){
@@ -131,13 +133,24 @@ UsuarioController.deleteUsuario = (req, res) => {
             }
         })
         .then(() => { Usuario.findOneAndRemove({nombreUsuario: nombreUsuario})
+            /*.then(() => {
+                Tarea.find({id_asignador: nombreUsuario}, (err, res) => {
+                    tareas = res;
+                    console.log(tareas);
+                });
+            })*/
             .then(() => {
                 Tarea.deleteMany({id_asignador: nombreUsuario}, () => {
                     return Promise.resolve();
                 });
             })
             .then(() => {
-                Tarea.update({}, {$pull: {id_asignado: nombreUsuario}}, { multi: true }, () => {
+                Asignacion.deleteMany({id_asignado: nombreUsuario, /*id_tarea: {$in: tareas._id}*/}, () => {
+                    return Promise.resolve();
+                });
+            })
+            .then(() => {
+                Usuario.updateMany({}, {$pull: {contactos: nombreUsuario}}, () => {
                     return Promise.resolve();
                 });
             })

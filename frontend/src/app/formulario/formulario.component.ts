@@ -38,7 +38,7 @@ export class FormularioComponent implements OnInit {
       informacion: new FormControl('', Validators.required)
     });
 
-    this.currentUserName = this.authService.getUser();
+    this.currentUserName = localStorage.getItem("USUARIO");
     if(this.currentUserName) {
       this.usuarioService.getUsuario(this.currentUserName)
       .subscribe(res => {
@@ -60,6 +60,8 @@ export class FormularioComponent implements OnInit {
         this.goBack();
       },
       err => {
+        this.usuario = null;
+        this.err = err.error.error;
         console.log('Error ', err);
       });
   }
@@ -97,8 +99,9 @@ export class FormularioComponent implements OnInit {
 
   updateUsuario() {
     this.loadUsuario();
-    this.usuarioService.updateUsuario(this.usuario)
+    this.usuarioService.updateUsuario(this.usuario, this.currentUserName)
     .subscribe(() => {
+      localStorage.setItem("USUARIO", this.usuario.nombreUsuario);
       this.goBack();
     },
     err => {

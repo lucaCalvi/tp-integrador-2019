@@ -41,8 +41,8 @@ export class UsuarioService {
     return this.httpClient.post(this.URL_API, usuario);
   }
 
-  updateUsuario(usuario): Observable<Object> {
-    return this.httpClient.put(this.URL_API + `/${usuario.nombreUsuario}`, usuario);
+  updateUsuario(usuario, nombreUsuario): Observable<Object> {
+    return this.httpClient.put(this.URL_API + `/${nombreUsuario}`, usuario);
   }
 
   deleteUsuario(usuario, contraseña): Observable<Object> {

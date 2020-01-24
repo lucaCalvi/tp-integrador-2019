@@ -37,6 +37,8 @@
             </div>
             <p class="error" *ngIf="err == 'Contraseña incorrecta'">*Contraseña incorrecta</p>
             <p class="error" *ngIf="form.get('email').hasError('email')">*Email inválido</p>
+            <p class="error" *ngIf="err == 'El nombre de usuario ingresado ya existe'">*El nombre de usuario ya existe</p>
+            <p class="error" *ngIf="err == 'El email ingresado ya está registrado'">*El email ya está registrado</p>
           </div>
           <div class="card-action">
             <button class="waves-effect waves-light btn red lighten-1" (click)="insertUsuario()" *ngIf="!usuario" [disabled]="form.invalid">Agregar</button>
