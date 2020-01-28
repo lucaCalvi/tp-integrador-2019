@@ -121,7 +121,7 @@ UsuarioController.updateUsuario = (req, res) => {
 UsuarioController.deleteUsuario = (req, res) => {
     const nombreUsuario = req.params.nombreUsuario;
     const contraseña = req.body.contraseña;
-    //var tareas = null;
+    let tareas = null;
     Usuario.findOne({nombreUsuario: nombreUsuario})
         .then(user => {
             if(bcrypt.compareSync(contraseña, user.contraseña)){
@@ -133,19 +133,25 @@ UsuarioController.deleteUsuario = (req, res) => {
             }
         })
         .then(() => { Usuario.findOneAndRemove({nombreUsuario: nombreUsuario})
-            /*.then(() => {
+            .then(() => {
                 Tarea.find({id_asignador: nombreUsuario}, (err, res) => {
                     tareas = res;
-                    console.log(tareas);
-                });
-            })*/
-            .then(() => {
-                Tarea.deleteMany({id_asignador: nombreUsuario}, () => {
+                    tareas.forEach(tarea => {
+                        let id = tarea._id.toString();
+                        Asignacion.deleteMany({id_tarea: id}, () => {
+                            return Promise.resolve();
+                        });
+                    });
                     return Promise.resolve();
                 });
             })
             .then(() => {
-                Asignacion.deleteMany({id_asignado: nombreUsuario, /*id_tarea: {$in: tareas._id}*/}, () => {
+                Asignacion.deleteMany({id_asignado: nombreUsuario}, () => {
+                    return Promise.resolve();
+                });
+            })
+            .then(() => {
+                Tarea.deleteMany({id_asignador: nombreUsuario}, () => {
                     return Promise.resolve();
                 });
             })
