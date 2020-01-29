@@ -12,11 +12,11 @@ import { Asignacion } from '../models/asignacion';
 })
 export class ListadoTareasAsignadasComponent implements OnInit {
 
-  tareas = null;
-  usuario = null;
-  currentUser = localStorage.getItem("USUARIO");
-  nombreUsuario = this.route.snapshot.paramMap.get('nombreUsuario');
-  estado = this.route.snapshot.paramMap.get('estado');
+  tareas: any = null;
+  usuario: any = null;
+  currentUser: string = localStorage.getItem("USUARIO");
+  nombreUsuario: string = this.route.snapshot.paramMap.get('nombreUsuario');
+  estado: string = this.route.snapshot.paramMap.get('estado');
 
   constructor(
     private usuarioService: UsuarioService,

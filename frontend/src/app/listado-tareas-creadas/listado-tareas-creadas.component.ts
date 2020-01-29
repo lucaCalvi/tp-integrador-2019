@@ -11,8 +11,8 @@ import { TareaService } from '../services/tarea.service';
 })
 export class ListadoTareasCreadasComponent implements OnInit {
 
-  tareas = null;
-  usuario = null;
+  tareas: any = null;
+  usuario: any = null;
 
   constructor(
     private usuarioService: UsuarioService,

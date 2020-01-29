@@ -14,13 +14,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class FormularioTareaComponent implements OnInit {
 
-  tarea = null;
-
+  tarea: any = null;
   form: FormGroup;
-
-  currentUserName = null;
-
-  currentTarea = null;
+  currentUserName: string = null;
+  currentTarea: string = null;
 
   constructor(
     private location: Location, 

@@ -5,7 +5,6 @@ export class Usuario {
     email: string;
     nombreUsuario: string;
     contraseña: string;
-    etiqueta: [];
     informacion: string;
     contactos: [];
 
@@ -15,7 +14,6 @@ export class Usuario {
         this.email = '';
         this.nombreUsuario = '';
         this.contraseña = '';
-        this.etiqueta = [];
         this.informacion = '';
         this.contactos = [];
     }

@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
 })
 export class DetalleUsuarioComponent implements OnInit {
 
-  usuario = null;
+  usuario: any = null;
 
   constructor(
     private usuarioService: UsuarioService,

@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Asignacion } from '../models/asignacion';
 import { AsignacionService } from '../services/asignacion.service';
+import { Usuario } from '../models/usuario';
+import { Tarea } from '../models/tarea';
 
 @Component({
   selector: 'app-listado-usuarios',
@@ -14,16 +16,11 @@ import { AsignacionService } from '../services/asignacion.service';
 export class ListadoUsuariosComponent implements OnInit {
 
   usuarios$: any = null;
-
   usuarioSesion: any = null;
-
-  currentUser = localStorage.getItem("USUARIO");
-
+  currentUser: string = localStorage.getItem("USUARIO");
   currentTarea: any = null;
-
-  asignacionesTarea = null;
-
-  usuariosAsignados = null;
+  asignacionesTarea: any = null;
+  usuariosAsignados = [];
 
   constructor(
     private usuarioService: UsuarioService, 

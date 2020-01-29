@@ -8,9 +8,8 @@ import { AuthService } from '../auth/auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  isLogged = false;
-
-  currentUser = null;
+  isLogged: boolean = false;
+  currentUser: string = null;
 
   constructor(private authService: AuthService) { }
 

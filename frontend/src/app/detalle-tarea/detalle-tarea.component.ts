@@ -10,8 +10,8 @@ import { Location } from '@angular/common';
 })
 export class DetalleTareaComponent implements OnInit {
 
-  tarea = null;
-  asignador = null;
+  tarea: any = null;
+  asignador: any = null;
 
   constructor(
     private usuarioService: UsuarioService,
