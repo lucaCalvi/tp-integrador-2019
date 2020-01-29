@@ -32,10 +32,10 @@ export class FormularioComponent implements OnInit {
     this.form = new FormGroup({
       nombre: new FormControl('', Validators.required),
       apellido: new FormControl('', Validators.required),
-      nombreUsuario: new FormControl('', Validators.required),
-      contrasenia: new FormControl('', Validators.required),
+      nombreUsuario: new FormControl('', [Validators.required, Validators.maxLength(15)]),
+      contrasenia: new FormControl('', [Validators.required, Validators.maxLength(10)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      informacion: new FormControl('', Validators.required)
+      informacion: new FormControl('', [Validators.required, Validators.maxLength(20)])
     });
 
     this.currentUserName = localStorage.getItem("USUARIO");

@@ -39,6 +39,9 @@
             <p class="error" *ngIf="form.get('email').hasError('email')">*Email inválido</p>
             <p class="error" *ngIf="err == 'El nombre de usuario ingresado ya existe'">*El nombre de usuario ya existe</p>
             <p class="error" *ngIf="err == 'El email ingresado ya está registrado'">*El email ya está registrado</p>
+            <p class="error" *ngIf="form.get('nombreUsuario').hasError('maxlength')">*Máximo 15 caracteres en "nombre de usuario"</p>
+            <p class="error" *ngIf="form.get('contrasenia').hasError('maxlength')">*Máximo 10 caracteres en "contraseña"</p>
+            <p class="error" *ngIf="form.get('informacion').hasError('maxlength')">*Máximo 20 caracteres en "informacion"</p>
           </div>
           <div class="card-action">
             <button class="waves-effect waves-light btn red lighten-1" (click)="insertUsuario()" *ngIf="!usuario" [disabled]="form.invalid">Agregar</button>
