@@ -11,10 +11,6 @@ export class TareaService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getMisTareas(nombreUsuario): Observable<Object> {
-    return this.httpClient.get(this.URL_API + `/${nombreUsuario}`);
-  }
-
   deleteTarea(idTarea): Observable<Object> {
     return this.httpClient.delete(this.URL_API + `/${idTarea}`);
   }
@@ -24,7 +20,7 @@ export class TareaService {
   }
 
   getTarea(idTarea): Observable<Object> {
-    return this.httpClient.get(this.URL_API + `/modificar-tarea/${idTarea}`);
+    return this.httpClient.get(this.URL_API + `/${idTarea}`);
   }
 
   updateTarea(tarea): Observable<Object> {

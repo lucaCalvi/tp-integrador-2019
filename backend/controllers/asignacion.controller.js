@@ -21,7 +21,7 @@ AsignacionController.asignarTarea = (req, res) => {
 
 AsignacionController.eliminarAsignacionTarea = (req, res) => {
     const id_tarea = req.params.idTarea;
-    const id_asignado = req.body.nombreUsuario
+    const id_asignado = req.body.nombreUsuario;
     Asignacion.findOneAndDelete({id_tarea: id_tarea, id_asignado: id_asignado})
       .then(() => {
           res.status(200).json({id: id_tarea});
@@ -105,7 +105,7 @@ AsignacionController.getAsignacionesTarea = (req, res) => {
 
 AsignacionController.cambiarEstado = (req, res) => {
     const idTarea = req.params.idTarea;
-    const nombreUsuario = req.params.nombreUsuario;
+    const nombreUsuario = req.body.id_asignado;
     const asignacion = {
         estado: req.body.estado,
         fechaFin: req.body.fechaFin,

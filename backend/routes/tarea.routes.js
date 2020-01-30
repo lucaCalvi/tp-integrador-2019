@@ -3,9 +3,8 @@ const router = express.Router();
 const TareaController = require('../controllers/tarea.controller');
 
 router.post('/', TareaController.insertTarea);
-router.put('/:id', TareaController.updateTarea);
-router.delete('/:id', TareaController.deleteTarea);
-router.get('/:nombreUsuario', TareaController.getMisTareas);
-router.get('/modificar-tarea/:idTarea', TareaController.getTarea);
+router.put('/:idTarea', TareaController.updateTarea);
+router.delete('/:idTarea', TareaController.deleteTarea);
+router.get('/:idTarea', TareaController.getTarea);
 
 module.exports = router;

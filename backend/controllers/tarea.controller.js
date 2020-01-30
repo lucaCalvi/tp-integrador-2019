@@ -32,7 +32,7 @@ TareaController.insertTarea = (req, res) => {
 }
 
 TareaController.updateTarea = (req, res) => {
-    const id = req.params.id;
+    const id = req.params.idTarea;
     const tarea = {
         descripcion: req.body.descripcion,
         fechaInicio: req.body.fechaInicio,
@@ -51,7 +51,7 @@ TareaController.updateTarea = (req, res) => {
 }
 
 TareaController.deleteTarea = (req, res) => {
-    const id = req.params.id;
+    const id = req.params.idTarea;
     Tarea.findByIdAndRemove(id)
       .then(() => {
           Asignacion.deleteMany({id_tarea: id})

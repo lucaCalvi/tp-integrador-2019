@@ -26,7 +26,7 @@ export class ListadoTareasCreadasComponent implements OnInit {
 
   getTareas() {
     const nombreUsuario = this.route.snapshot.paramMap.get('nombreUsuario');
-    this.tareaService.getMisTareas(nombreUsuario)
+    this.usuarioService.getMisTareas(nombreUsuario)
       .subscribe(res => {
         this.tareas = res;
         this.getUsuario();

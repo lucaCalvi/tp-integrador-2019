@@ -99,7 +99,7 @@ export class FormularioComponent implements OnInit {
     this.usuarioService.updateUsuario(this.usuario, this.currentUserName)
     .subscribe(() => {
       localStorage.setItem("USUARIO", this.usuario.nombreUsuario);
-      this.goBack();
+      this.router.navigateByUrl('/api/usuarios');
     },
     err => {
       this.err = err.error.error;

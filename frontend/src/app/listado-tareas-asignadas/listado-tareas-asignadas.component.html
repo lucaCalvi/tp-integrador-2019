@@ -21,7 +21,7 @@
                 <td>{{tarea.fechaInicio | date: 'dd/MM/yyyy'}}</td>
                 <td>{{tarea.estado}}</td>
                 <td>
-                    <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/tareas/{{tarea._id}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
+                    <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/asignaciones/{{tarea._id}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
                 </td>
                 <td *ngIf="nombreUsuario == currentUser && estado == 'pendientes'">
                     <button class="btn-floating waves-effect waves-light red" (click)="cambiarEstado(currentUser, tarea._id, 'Completa')"><i class="material-icons">check</i></button>

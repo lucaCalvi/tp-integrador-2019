@@ -20,11 +20,11 @@ export class UsuarioService {
   }
 
   getTareas(nombreUsuario): Observable<Object> {
-    return this.httpClient.get(this.URL_API + `/${nombreUsuario}` + '/tareas');
+    return this.httpClient.get(this.URL_API + `/${nombreUsuario}` + '/asignaciones');
   }
 
   getTarea(nombreUsuario, idTarea): Observable<Object> {
-    return this.httpClient.get(this.URL_API + `/${nombreUsuario}` + '/tareas' + `/${idTarea}`);
+    return this.httpClient.get(this.URL_API + `/${nombreUsuario}` + '/asignaciones' + `/${idTarea}`);
   }
 
   searchUsuarios(term: string): Observable<Object>{
@@ -50,10 +50,14 @@ export class UsuarioService {
   }
 
   agregarContacto(nombreUsuario, contacto): Observable<Object> {
-    return this.httpClient.put(this.URL_API + `/${nombreUsuario}/contactos/agregarContacto`, {contacto});
+    return this.httpClient.put(this.URL_API + `/${nombreUsuario}/agregar-contacto`, {contacto});
   }
 
   eliminarContacto(nombreUsuario, contacto): Observable<Object> {
-    return this.httpClient.put(this.URL_API + `/${nombreUsuario}/contactos/eliminarContacto`, {contacto});
+    return this.httpClient.put(this.URL_API + `/${nombreUsuario}/eliminar-contacto`, {contacto});
+  }
+
+  getMisTareas(nombreUsuario): Observable<Object> {
+    return this.httpClient.get(this.URL_API + `/${nombreUsuario}` + `/tareas`);
   }
 }

@@ -66,9 +66,8 @@ export class FormularioTareaComponent implements OnInit {
     this.tarea.descripcion = this.form.controls.descripcion.value;
     this.tarea.fechaInicio = new Date(this.form.controls.fechaInicio.value);
     this.tarea.fechaInicio.setMinutes(this.tarea.fechaInicio.getTimezoneOffset());
-    console.log(this.tarea.fechaInicio);
     this.tarea.fechaLimite = new Date(this.form.controls.fechaLimite.value);
-    this.tarea.fechaLimite.setMinutes(this.tarea.fechaLimite.getMinutes() + this.tarea.fechaLimite.getTimezoneOffset());
+    this.tarea.fechaLimite.setMinutes(this.tarea.fechaLimite.getTimezoneOffset());
     this.tarea.lugar = this.form.controls.lugar.value;
     this.tarea.id_asignador = this.currentUserName;
   }

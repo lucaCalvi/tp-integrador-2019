@@ -24,6 +24,6 @@ export class AsignacionService {
   }
 
   cambiarEstado(asignacion): Observable<Object> {
-    return this.httpClient.put(this.URL_API + `/${asignacion.id_asignado}` + `/${asignacion.id_tarea}`, asignacion);
+    return this.httpClient.put(this.URL_API + `/${asignacion.id_tarea}`, asignacion);
   }
 }

@@ -26,7 +26,7 @@
                     <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.apellido}}</td> 
                     <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.nombreUsuario}}</td>
                     <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea == null">
-                        <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/tareas" class="btn-floating waves-effect waves-light red"><i class="material-icons">event_note</i></a>
+                        <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/asignaciones" class="btn-floating waves-effect waves-light red"><i class="material-icons">event_note</i></a>
                     </td>
                     <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea == null">
                         <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
