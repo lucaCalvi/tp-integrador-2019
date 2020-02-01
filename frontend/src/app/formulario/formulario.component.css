@@ -16,3 +16,11 @@ input {
 p.error {
     color: white;
 }
+
+img.perfil {
+    border-radius: 100%;
+}
+
+div.perfil {
+    text-align: center;
+}

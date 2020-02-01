@@ -21,6 +21,7 @@ export class ListadoUsuariosComponent implements OnInit {
   currentTarea: any = null;
   asignacionesTarea: any = null;
   usuariosAsignados = [];
+  URL_API = 'http://localhost:3000/';
 
   constructor(
     private usuarioService: UsuarioService, 

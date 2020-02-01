@@ -7,6 +7,7 @@ export class Usuario {
     contraseña: string;
     informacion: string;
     contactos: [];
+    foto: string;
 
     constructor(){
         this.nombre = '';
@@ -16,5 +17,6 @@ export class Usuario {
         this.contraseña = '';
         this.informacion = '';
         this.contactos = [];
+        this.foto = null;
     }
 }

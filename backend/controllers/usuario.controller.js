@@ -4,6 +4,7 @@ const Asignacion = require('../models/asignacion');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const SECRET_KEY = 'secretkey1234';
+const fs = require('fs');
 UsuarioController = {};
 
 UsuarioController.getUsuarios = (req, res) => {
@@ -36,8 +37,24 @@ UsuarioController.insertUsuario = (req, res) => {
         nombreUsuario: req.body.nombreUsuario,
         contraseña: bcrypt.hashSync(req.body.contraseña),
         informacion: req.body.informacion,
-        contactos: req.body.contactos
+        contactos: req.body.contactos,
+        foto: null
     });
+
+    if(req.body.foto != null) {
+        var foto = req.body.foto;
+        var nombreFoto = Math.round(Math.random() * 1000000000000000).toString() + ".jpg";  
+        fs.writeFile('upload/' + nombreFoto, foto, 'base64', (err) => {
+            if(err) {
+                status = 400;
+                throw new Error("Error al guardar imagen de usuario");
+            }
+        });
+        usuario.foto = 'upload/' + nombreFoto;
+    }
+    else {
+        usuario.foto = null;
+    }
     
     Usuario.find({$or: [{email: usuario.email}, {nombreUsuario: usuario.nombreUsuario}]})
         .then(usuarios => {
@@ -76,8 +93,24 @@ UsuarioController.updateUsuario = (req, res) => {
         nombreUsuario: req.body.nombreUsuario,
         contraseña: req.body.contraseña,
         informacion: req.body.informacion,
-        contactos: req.body.contactos
+        contactos: req.body.contactos,
+        foto: null
     };
+
+    if(req.body.foto != null) {
+        var foto = req.body.foto;
+        var nombreFoto = Math.round(Math.random() * 1000000000000000).toString() + ".jpg";  
+        fs.writeFile('upload/' + nombreFoto, foto, 'base64', (err) => {
+            if(err) {
+                status = 400;
+                throw new Error("Error al guardar imagen de usuario");
+            }
+        });
+        usuario.foto = 'upload/' + nombreFoto;
+    }
+    else {
+        usuario.foto = null;
+    }
 
     Usuario.find({$or: [{email: usuario.email}, {nombreUsuario: usuario.nombreUsuario}], nombreUsuario: {$ne: nombreUsuario}})
         .then(usuarios => {
@@ -122,6 +155,7 @@ UsuarioController.deleteUsuario = (req, res) => {
     const nombreUsuario = req.params.nombreUsuario;
     const contraseña = req.body.contraseña;
     let tareas = null;
+
     Usuario.findOne({nombreUsuario: nombreUsuario})
         .then(user => {
             if(bcrypt.compareSync(contraseña, user.contraseña)){
@@ -133,7 +167,7 @@ UsuarioController.deleteUsuario = (req, res) => {
             }
         })
         .then(() => { Usuario.findOneAndRemove({nombreUsuario: nombreUsuario})
-            .then(() => {
+            .then((user) => {
                 Tarea.find({id_asignador: nombreUsuario}, (err, res) => {
                     tareas = res;
                     tareas.forEach(tarea => {
@@ -141,6 +175,12 @@ UsuarioController.deleteUsuario = (req, res) => {
                         Asignacion.deleteMany({id_tarea: id}, () => {
                             return Promise.resolve();
                         });
+                    });
+                    fs.unlink(user.foto, (err) => {
+                        if(err) {
+                            status = 400;
+                            throw new Error("Error al eliminar imagen de usuario");
+                        }
                     });
                     return Promise.resolve();
                 });
