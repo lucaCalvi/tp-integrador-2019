@@ -24,3 +24,7 @@ img.perfil {
 div.perfil {
     text-align: center;
 }
+
+label {
+    color: lightgray;
+}

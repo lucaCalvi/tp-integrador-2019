@@ -39,16 +39,17 @@
               <div class="file-field input-field col s12">
                 <div class="btn red lighten-1">
                   <span>Archivo</span>
-                  <input type="file" (change)="onPhotoSelected($event)" #photoInput>
+                  <input type="file" id="selectedFile" title="" (change)="onPhotoSelected($event)" #photoInput>
                 </div>
                 <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text">
+                  <input type="text" id="selectedFileText" formControlName="selectedFileText" class="file-path" accept="image/*">
                 </div>
               </div>
             </div>
             <div class="perfil">
               <img [src]="photoSelected || 'assets/nophoto.png'" alt="Imagen Usuario" class="waves-effect perfil" width="100" height="auto" (click)="photoInput.click()">
             </div>
+            <button class="waves-effect waves-light btn red lighten-1" (click)="resetPhoto()">Borrar foto</button>
             <p class="error" *ngIf="err == 'Contraseña incorrecta'">*Contraseña incorrecta</p>
             <p class="error" *ngIf="form.get('email').hasError('email')">*Email inválido</p>
             <p class="error" *ngIf="err == 'El nombre de usuario ingresado ya existe'">*El nombre de usuario ya existe</p>
@@ -61,7 +62,7 @@
             <button class="waves-effect waves-light btn red lighten-1" (click)="insertUsuario()" *ngIf="!currentUserName" [disabled]="form.invalid">Registrar</button>
             <button class="waves-effect waves-light btn red lighten-1" (click)="updateUsuario()" *ngIf="currentUserName" [disabled]="form.invalid">Modificar</button>
             <button class="waves-effect waves-light btn red lighten-1" (click)="deleteUsuario()" *ngIf="currentUserName" [disabled]="form.invalid">Eliminar</button>
-            <button class="waves-effect waves-light btn red lighten-1" (click)="resetForm()">Borrar</button>
+            <button type="reset" class="waves-effect waves-light btn red lighten-1" (click)="resetForm()">Borrar</button>
             <button class="waves-effect waves-light btn red lighten-1" (click)="goBack()">Volver</button>
           </div>
         </form>

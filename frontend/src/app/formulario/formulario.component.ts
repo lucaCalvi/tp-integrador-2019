@@ -39,7 +39,8 @@ export class FormularioComponent implements OnInit {
       nombreUsuario: new FormControl('', [Validators.required, Validators.maxLength(15)]),
       contrasenia: new FormControl('', [Validators.required, Validators.maxLength(10)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      informacion: new FormControl('', [Validators.required, Validators.maxLength(20)])
+      informacion: new FormControl('', [Validators.required, Validators.maxLength(20)]),
+      selectedFileText: new FormControl('')
     });
 
     this.currentUserName = localStorage.getItem("USUARIO");
@@ -83,6 +84,9 @@ export class FormularioComponent implements OnInit {
     else if(this.photoSelected && this.photoSelected[21] == ',') {
       this.usuario.foto = this.photoSelected.slice(22);
     }
+    else if(this.photoSelected) {
+      this.usuario.foto = this.photoSelected.slice(22);
+    }
     else {
       this.usuario.foto = null;
     }
@@ -103,14 +107,13 @@ export class FormularioComponent implements OnInit {
   }
 
   resetForm() {
-    this.form.controls.nombre.setValue(null);
-    this.form.controls.apellido.setValue(null);
-    this.form.controls.email.setValue(null);
-    this.form.controls.nombreUsuario.setValue(null);
-    this.form.controls.contrasenia.setValue(null);
-    this.form.controls.informacion.setValue(null);
     this.photoSelected = null;
     this.err = null;
+  }
+
+  resetPhoto() {
+    this.photoSelected = null;
+    this.form.controls.selectedFileText.setValue('');
   }
 
   goBack() {

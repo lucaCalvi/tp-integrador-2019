@@ -16,3 +16,7 @@ input {
 p.error {
     color: white;
 }
+
+label {
+    color: lightgray;
+}

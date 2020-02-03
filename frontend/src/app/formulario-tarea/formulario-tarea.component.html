@@ -12,13 +12,13 @@
                 </div>
                 <div class="input-field col s6">
                     <input type="date" id="fechaInicio" formControlName="fechaInicio" autocomplete="off">
-                    <label for="fechaInicio" class="active" *ngIf="form.get('fechaInicio').hasError('required')">*Obligatorio</label>
+                    <label for="fechaInicio" class="active" *ngIf="form.get('fechaInicio').hasError('required')">*Obligatorio - Fecha de inicio</label>
                 </div>
           </div>
           <div class="row">
                 <div class="input-field col s6">
                     <input type="date" id="fechaLimite" formControlName="fechaLimite" autocomplete="off">
-                    <label for="fechaLimite" class="active" *ngIf="form.get('fechaLimite').hasError('required')">*Obligatorio</label>
+                    <label for="fechaLimite" class="active" *ngIf="form.get('fechaLimite').hasError('required')">*Obligatorio - Fecha limite</label>
                 </div>
                 <div class="input-field col s6">
                     <input type="text" id="lugar" placeholder="Lugar" formControlName="lugar" autocomplete="off">

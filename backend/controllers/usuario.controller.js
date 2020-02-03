@@ -97,7 +97,7 @@ UsuarioController.updateUsuario = (req, res) => {
         foto: null
     };
 
-    if(req.body.foto != null) {
+    if(req.body.foto != null && !req.body.foto.includes('upload')) {
         var foto = req.body.foto;
         var nombreFoto = Math.round(Math.random() * 1000000000000000).toString() + ".jpg";  
         fs.writeFile('upload/' + nombreFoto, foto, 'base64', (err) => {
@@ -107,6 +107,9 @@ UsuarioController.updateUsuario = (req, res) => {
             }
         });
         usuario.foto = 'upload/' + nombreFoto;
+    }
+    else if(req.body.foto != null && req.body.foto.includes('upload')){
+        usuario.foto = req.body.foto;
     }
     else {
         usuario.foto = null;
@@ -143,6 +146,21 @@ UsuarioController.updateUsuario = (req, res) => {
         )
         .then(() => {
             Usuario.findOneAndUpdate({nombreUsuario: nombreUsuario}, {$set: usuario}, () => {
+                return Promise.resolve();
+            });
+        })
+        .then(() => {
+            Asignacion.updateMany({id_asignado: nombreUsuario}, {$set: {id_asignado: usuario.nombreUsuario}}, () => {
+                return Promise.resolve();
+            });
+        })
+        .then(() => {
+            Tarea.updateMany({id_asignador: nombreUsuario}, {$set: {id_asignador: usuario.nombreUsuario}}, () => {
+                return Promise.resolve();
+            });
+        })
+        .then(() => {
+            Usuario.updateMany({contactos: nombreUsuario}, {$set: {"contactos.$": usuario.nombreUsuario}}, () => {
                 res.status(200).json({id: nombreUsuario});
             });
         })
@@ -176,12 +194,14 @@ UsuarioController.deleteUsuario = (req, res) => {
                             return Promise.resolve();
                         });
                     });
-                    fs.unlink(user.foto, (err) => {
-                        if(err) {
-                            status = 400;
-                            throw new Error("Error al eliminar imagen de usuario");
-                        }
-                    });
+                    if(user.foto){
+                        fs.unlink(user.foto.toString(), (err) => {
+                            if(err) {
+                                status = 400;
+                                throw new Error("Error al eliminar imagen de usuario");
+                            }
+                        });
+                    }
                     return Promise.resolve();
                 });
             })
