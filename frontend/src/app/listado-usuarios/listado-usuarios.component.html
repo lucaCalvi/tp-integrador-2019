@@ -11,6 +11,7 @@
         <table class="striped">
             <thead>
                 <tr>
+                    <th>Foto de Perfil</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Usuario</th>
@@ -22,6 +23,12 @@
             </thead>
             <tbody>
                 <tr *ngFor="let usuario of usuarios$ | async">
+                    <td *ngIf="usuario.nombreUsuario != currentUser && usuario.foto">
+                        <img [src]="URL_API + usuario.foto" alt="Imagen Usuario" class="perfil" width="60" height="auto">
+                    </td>
+                    <td *ngIf="usuario.nombreUsuario != currentUser && !usuario.foto">
+                        <img [src]="'assets/nophoto.png'" alt="Imagen Usuario" class="perfil" width="60" height="auto">
+                    </td>
                     <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.nombre}}</td>
                     <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.apellido}}</td> 
                     <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.nombreUsuario}}</td>

@@ -27,3 +27,7 @@ table.striped>thead>tr {
     background-color: #c62828;
     color: white;
 }
+
+img.perfil {
+    border-radius: 100%;
+}

@@ -7,6 +7,10 @@ import { Router } from '@angular/router';
 import { isNullOrUndefined } from 'util';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
+interface htmlInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
+
 @Component({
   selector: 'app-formulario',
   templateUrl: './formulario.component.html',
@@ -18,6 +22,9 @@ export class FormularioComponent implements OnInit {
   form: FormGroup;
   currentUserName: string = null;
   err: string = null;
+  file: File = null;
+  photoSelected: string | ArrayBuffer = null;
+  URL_API = 'http://localhost:3000/';
 
   constructor(
     private location: Location, 
@@ -70,6 +77,15 @@ export class FormularioComponent implements OnInit {
     this.usuario.nombreUsuario = this.form.controls.nombreUsuario.value;
     this.usuario.contraseña = this.form.controls.contrasenia.value;
     this.usuario.informacion = this.form.controls.informacion.value;
+    if(this.photoSelected && this.photoSelected[22] == ',') {
+      this.usuario.foto = this.photoSelected.slice(23);
+    }
+    else if(this.photoSelected && this.photoSelected[21] == ',') {
+      this.usuario.foto = this.photoSelected.slice(22);
+    }
+    else {
+      this.usuario.foto = null;
+    }
   }
 
   loadForm() {
@@ -78,6 +94,12 @@ export class FormularioComponent implements OnInit {
     this.form.controls.email.setValue(this.usuario.email);
     this.form.controls.nombreUsuario.setValue(this.usuario.nombreUsuario);
     this.form.controls.informacion.setValue(this.usuario.informacion);
+    if(this.usuario.foto){
+      this.photoSelected = this.URL_API + this.usuario.foto;
+    }
+    else {
+      this.photoSelected = null;
+    }
   }
 
   resetForm() {
@@ -87,6 +109,7 @@ export class FormularioComponent implements OnInit {
     this.form.controls.nombreUsuario.setValue(null);
     this.form.controls.contrasenia.setValue(null);
     this.form.controls.informacion.setValue(null);
+    this.photoSelected = null;
     this.err = null;
   }
 
@@ -120,6 +143,16 @@ export class FormularioComponent implements OnInit {
       this.err = err.error.error;
       console.log('Error ', err);
     });
+  }
+
+  onPhotoSelected(event: htmlInputEvent): void {
+    if(event.target.files && event.target.files[0]) {
+      this.file = <File>event.target.files[0];
+      //image preview
+      const reader = new FileReader();
+      reader.onload = e => this.photoSelected = reader.result;
+      reader.readAsDataURL(this.file);
+    }
   }
 
 }

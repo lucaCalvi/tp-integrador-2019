@@ -7,7 +7,8 @@ const Usuario = new mongoose.Schema({
     nombreUsuario: {type: String, required: true},
     contraseña: {type: String, required: true},
     informacion: {type: String, required: true},
-    contactos: {type: Array, required: false}
+    contactos: {type: Array, required: false},
+    foto: {type: String, required: false}
 });
 
 module.exports = mongoose.model('Usuario', Usuario);

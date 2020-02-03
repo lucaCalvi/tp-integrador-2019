@@ -35,6 +35,20 @@
                       <label for="informacion" class="active" *ngIf="form.get('informacion').hasError('required')">*Obligatorio</label>
                   </div>
             </div>
+            <div class="row">
+              <div class="file-field input-field col s12">
+                <div class="btn red lighten-1">
+                  <span>Archivo</span>
+                  <input type="file" (change)="onPhotoSelected($event)" #photoInput>
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+              </div>
+            </div>
+            <div class="perfil">
+              <img [src]="photoSelected || 'assets/nophoto.png'" alt="Imagen Usuario" class="waves-effect perfil" width="100" height="auto" (click)="photoInput.click()">
+            </div>
             <p class="error" *ngIf="err == 'Contraseña incorrecta'">*Contraseña incorrecta</p>
             <p class="error" *ngIf="form.get('email').hasError('email')">*Email inválido</p>
             <p class="error" *ngIf="err == 'El nombre de usuario ingresado ya existe'">*El nombre de usuario ya existe</p>
