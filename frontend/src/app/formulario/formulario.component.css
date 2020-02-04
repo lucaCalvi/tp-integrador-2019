@@ -28,3 +28,7 @@ div.perfil {
 label {
     color: lightgray;
 }
+
+div.error {
+    margin-top: 15px;
+}

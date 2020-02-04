@@ -50,13 +50,15 @@
               <img [src]="photoSelected || 'assets/nophoto.png'" alt="Imagen Usuario" class="waves-effect perfil" width="100" height="auto" (click)="photoInput.click()">
             </div>
             <button class="waves-effect waves-light btn red lighten-1" (click)="resetPhoto()">Borrar foto</button>
-            <p class="error" *ngIf="err == 'Contraseña incorrecta'">*Contraseña incorrecta</p>
-            <p class="error" *ngIf="form.get('email').hasError('email')">*Email inválido</p>
-            <p class="error" *ngIf="err == 'El nombre de usuario ingresado ya existe'">*El nombre de usuario ya existe</p>
-            <p class="error" *ngIf="err == 'El email ingresado ya está registrado'">*El email ya está registrado</p>
-            <p class="error" *ngIf="form.get('nombreUsuario').hasError('maxlength')">*Máximo 15 caracteres en "nombre de usuario"</p>
-            <p class="error" *ngIf="form.get('contrasenia').hasError('maxlength')">*Máximo 10 caracteres en "contraseña"</p>
-            <p class="error" *ngIf="form.get('informacion').hasError('maxlength')">*Máximo 20 caracteres en "informacion"</p>
+            <div class="error">
+              <p class="error" *ngIf="err == 'Contraseña incorrecta'">*Contraseña incorrecta</p>
+              <p class="error" *ngIf="form.get('email').hasError('email')">*Email inválido</p>
+              <p class="error" *ngIf="err == 'El nombre de usuario ingresado ya existe'">*El nombre de usuario ya existe</p>
+              <p class="error" *ngIf="err == 'El email ingresado ya está registrado'">*El email ya está registrado</p>
+              <p class="error" *ngIf="form.get('nombreUsuario').hasError('maxlength')">*Máximo 15 caracteres en "nombre de usuario"</p>
+              <p class="error" *ngIf="form.get('contrasenia').hasError('maxlength')">*Máximo 10 caracteres en "contraseña"</p>
+              <p class="error" *ngIf="form.get('informacion').hasError('maxlength')">*Máximo 20 caracteres en "informacion"</p>
+            </div>
           </div>
           <div class="card-action">
             <button class="waves-effect waves-light btn red lighten-1" (click)="insertUsuario()" *ngIf="!currentUserName" [disabled]="form.invalid">Registrar</button>
