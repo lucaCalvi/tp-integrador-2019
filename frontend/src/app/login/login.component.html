@@ -1,10 +1,62 @@
 <app-menu></app-menu>
-<div class="login z-depth-4">
-    <h2 class="login-header">Log in</h2>
-    <form [formGroup]="frmLogin" class="login-container" (ngSubmit)="login(frmLogin)">
-      <p><input type="usuario" formControlName="nombreUsuario" placeholder="Usuario"></p>
-      <p><input type="password" formControlName="contraseña" placeholder="Contraseña"></p>
-      <p class="error" *ngIf="err == 'Datos incorrectos'">*Datos incorrectos</p>
-      <p><input type="submit" value="Log in" [disabled]="frmLogin.invalid"></p>
-    </form>
+
+<body></body>
+<div class = row>
+  <div class="col s12 m6 l6 container section"  >
+
+      <div class=" card col s12 m8 l12 container section"  >
+        <h1>Bienvenido a SAT</h1>
+        <p class="flow-text">
+          Comenzando la necesidad de los profesores de asignar trabajos a sus alumnos surge SAT (Sistema Asignador de Tareas), como su nombre lo indica, provee una forma fácil de delegar tareas a otras personas.
+        </p >
+      </div>
+
+
+    <div class="card col s12 m8 l12 container section"  >
+      <div class="col s6 m4 l6 container section"  >
+        <blockquote>
+          <h4>¿No sabe por donde empezar?</h4>
+          <p class="flow-text">    SAT le permite colocar todos sus deberes en un mismo lugar y actualizarlos de manera facil e intuitiva.</p >
+        </blockquote>
+      </div>
+      <div class="col s6 m4 l6 container section"  >
+        <img class="responsive-img section"
+             src="https://tusfinanzas.ec/wp-content/uploads/2018/12/checklist.png" alt="">
+      </div>
+    </div>
+    <div class="card col s12 m8 l12 container section"  >
+      <div class="col s6 m4 l6 container section"  >
+      <img class="responsive-img section"
+           src="https://www.grandespymes.com.ar/wp-content/uploads/2018/07/C%C3%B3mo-delegar-responsabilidades-en-la-empresa-para-crecer.jpg" alt="">
+    </div>
+    <div class="col s6 m4 l6 container section"  >
+
+      <blockquote>
+        <h4 >¿Demasiado trabajo?</h4>
+        <p class="flow-text">      Con SAT podra comenzar a delegar tareas a sus contactos y asi mejorar el flujo de trabajo.</p >
+      </blockquote>
+    </div>
+  </div>
+
+
+  </div>
+
+
+
+  <div class="col  s12 m6">
+    <div class="card login ">
+        <h2 class="login-header">Ingrese Ahora!</h2>
+        <form [formGroup]="frmLogin" class="login-container" (ngSubmit)="login(frmLogin)">
+          <p><input type="usuario" formControlName="nombreUsuario" placeholder="Usuario"></p>
+          <p><input type="password" formControlName="contraseña" placeholder="Contraseña"></p>
+          <p class="error" *ngIf="err == 'Datos incorrectos'">*Datos incorrectos</p>
+          <p><input type="submit" value="Log in" [disabled]="frmLogin.invalid"></p>
+          <p class = "white-text">Es su primera vez aqui?</p>
+          <a class="waves-effect waves-light btn red lighten-1"  routerLink="/api/usuario/registrar" > Registrate</a>
+
+        </form>
+
+    </div>
+
+  </div>
 </div>
