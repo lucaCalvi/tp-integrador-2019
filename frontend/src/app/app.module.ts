@@ -16,6 +16,8 @@ import { FormularioComponent } from './formulario/formulario.component';
 import { LoginComponent } from './login/login.component';
 import { ListadoTareasCreadasComponent } from './listado-tareas-creadas/listado-tareas-creadas.component';
 import { FormularioTareaComponent } from './formulario-tarea/formulario-tarea.component';
+import { RegistrarUsuarioComponent } from './registrar-usuario/registrar-usuario.component';
+import { ConfigurarUsuarioComponent } from './configurar-usuario/configurar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { FormularioTareaComponent } from './formulario-tarea/formulario-tarea.co
     FormularioComponent,
     LoginComponent,
     ListadoTareasCreadasComponent,
-    FormularioTareaComponent
+    FormularioTareaComponent,
+    RegistrarUsuarioComponent,
+    ConfigurarUsuarioComponent
   ],
   imports: [
     BrowserModule,

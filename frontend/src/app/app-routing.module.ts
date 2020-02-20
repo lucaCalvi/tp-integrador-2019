@@ -5,11 +5,12 @@ import { DetalleUsuarioComponent } from './detalle-usuario/detalle-usuario.compo
 import { MenuComponent } from './menu/menu.component';
 import { ListadoTareasAsignadasComponent } from './listado-tareas-asignadas/listado-tareas-asignadas.component';
 import { DetalleTareaComponent } from './detalle-tarea/detalle-tarea.component';
-import { FormularioComponent } from './formulario/formulario.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ListadoTareasCreadasComponent } from './listado-tareas-creadas/listado-tareas-creadas.component';
 import { FormularioTareaComponent } from './formulario-tarea/formulario-tarea.component';
+import { RegistrarUsuarioComponent } from './registrar-usuario/registrar-usuario.component';
+import { ConfigurarUsuarioComponent } from './configurar-usuario/configurar-usuario.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/api/login', pathMatch: 'full' },
@@ -17,8 +18,8 @@ const routes: Routes = [
   { path: 'api/usuarios/:nombreUsuario', component: DetalleUsuarioComponent, canActivate: [AuthGuard] },
   { path: 'api/usuarios/:nombreUsuario/asignaciones', component: ListadoTareasAsignadasComponent, canActivate: [AuthGuard] },
   { path: 'api/usuarios/:nombreUsuario/asignaciones/:idTarea', component: DetalleTareaComponent, canActivate: [AuthGuard] },
-  { path: 'api/usuario/registrar', component: FormularioComponent },
-  { path: 'api/usuarios/:nombreUsuario/modificar', component: FormularioComponent, canActivate: [AuthGuard] },
+  { path: 'api/usuario/registrar', component: RegistrarUsuarioComponent },
+  { path: 'api/usuarios/:nombreUsuario/modificar', component: ConfigurarUsuarioComponent, canActivate: [AuthGuard] },
   { path: 'api/login', component: LoginComponent },
   { path: 'api/usuarios/:nombreUsuario/tareas', component: ListadoTareasCreadasComponent, canActivate: [AuthGuard] },
   { path: 'api/tareas/registrar', component: FormularioTareaComponent, canActivate: [AuthGuard] },

@@ -35,9 +35,9 @@ UsuarioController.insertUsuario = (req, res) => {
         apellido: req.body.apellido,
         email: req.body.email,
         nombreUsuario: req.body.nombreUsuario,
-        contraseña: bcrypt.hashSync(req.body.contraseña),
+        contraseña: bcrypt.hashSync(req.body.contrasenia),
         informacion: req.body.informacion,
-        contactos: req.body.contactos,
+        contactos: [],
         foto: null
     });
 
@@ -91,10 +91,9 @@ UsuarioController.updateUsuario = (req, res) => {
         apellido: req.body.apellido,
         email: req.body.email,
         nombreUsuario: req.body.nombreUsuario,
-        contraseña: req.body.contraseña,
+        contraseña: req.body.contrasenia,
         informacion: req.body.informacion,
-        contactos: req.body.contactos,
-        foto: null
+        foto: req.body.foto
     };
 
     if(req.body.foto != null && !req.body.foto.includes('upload')) {

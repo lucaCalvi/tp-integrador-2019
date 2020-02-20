@@ -1,4 +1,3 @@
-<app-menu></app-menu>
 <div class="row">
     <div class="col s12 m12">
       <div class="card red lighten-1 card z-depth-4">
@@ -50,6 +49,7 @@
               <img [src]="photoSelected || 'assets/nophoto.png'" alt="Imagen Usuario" class="waves-effect perfil" width="100" height="auto" (click)="photoInput.click()">
             </div>
             <button class="waves-effect waves-light btn red lighten-1" (click)="resetPhoto()">Borrar foto</button>
+            <button type="reset" class="waves-effect waves-light btn red lighten-1" (click)="resetForm()">Borrar</button>
             <div class="error">
               <p class="error" *ngIf="err == 'Contraseña incorrecta'">*Contraseña incorrecta</p>
               <p class="error" *ngIf="form.get('email').hasError('email')">*Email inválido</p>
@@ -59,13 +59,6 @@
               <p class="error" *ngIf="form.get('contrasenia').hasError('maxlength')">*Máximo 10 caracteres en "contraseña"</p>
               <p class="error" *ngIf="form.get('informacion').hasError('maxlength')">*Máximo 20 caracteres en "informacion"</p>
             </div>
-          </div>
-          <div class="card-action">
-            <button class="waves-effect waves-light btn red lighten-1" (click)="insertUsuario()" *ngIf="!currentUserName" [disabled]="form.invalid">Registrar</button>
-            <button class="waves-effect waves-light btn red lighten-1" (click)="updateUsuario()" *ngIf="currentUserName" [disabled]="form.invalid">Modificar</button>
-            <button class="waves-effect waves-light btn red lighten-1" (click)="deleteUsuario()" *ngIf="currentUserName" [disabled]="form.invalid">Eliminar</button>
-            <button type="reset" class="waves-effect waves-light btn red lighten-1" (click)="resetForm()">Borrar</button>
-            <button class="waves-effect waves-light btn red lighten-1" (click)="goBack()">Volver</button>
           </div>
         </form>
       </div>
