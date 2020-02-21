@@ -1,60 +1,45 @@
-<app-menu></app-menu>
-<div>
-    <h3>Listado de usuarios</h3>
-</div>
-<div class="container">
-    <div>
-        <app-search-box (listUsuarios)="updateList($event)"></app-search-box>
-        <div *ngIf="currentTarea != null">
-            <button class="waves-effect waves-light btn-large red" (click)="asignarContactos()">Asignar a todos los Contactos</button>
-        </div>
-        <table class="striped">
-            <thead>
-                <tr>
-                    <th>Foto de Perfil</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Usuario</th>
-                    <th *ngIf="currentTarea == null">Tareas</th>
-                    <th *ngIf="currentTarea == null">Detalle</th>
-                    <th *ngIf="currentTarea == null">Contacto</th>
-                    <th *ngIf="currentTarea != null">Asignar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let usuario of usuarios$ | async">
-                    <td *ngIf="usuario.nombreUsuario != currentUser && usuario.foto">
-                        <img [src]="URL_API + usuario.foto" alt="Imagen Usuario" class="perfil" width="60" height="auto">
-                    </td>
-                    <td *ngIf="usuario.nombreUsuario != currentUser && !usuario.foto">
-                        <img [src]="'assets/nophoto.png'" alt="Imagen Usuario" class="perfil" width="60" height="auto">
-                    </td>
-                    <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.nombre}}</td>
-                    <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.apellido}}</td> 
-                    <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.nombreUsuario}}</td>
-                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea == null">
-                        <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/asignaciones" class="btn-floating waves-effect waves-light red"><i class="material-icons">event_note</i></a>
-                    </td>
-                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea == null">
-                        <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
-                    </td>
-                    <td *ngIf="!usuarioSesion.contactos.includes(usuario.nombreUsuario) && usuario.nombreUsuario != currentUser && currentTarea == null">
-                        <button (click)="agregarContacto(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">add</i></button>
-                    </td>
-                    <td *ngIf="usuarioSesion.contactos.includes(usuario.nombreUsuario) && usuario.nombreUsuario != currentUser && currentTarea == null">
-                        <button (click)="eliminarContacto(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">clear</i></button>
-                    </td>
-                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea != null && !(usuariosAsignados.includes(usuario.nombreUsuario))">
-                        <button (click)="asignarTarea(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">check</i></button>
-                    </td>
-                    <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea != null && usuariosAsignados.includes(usuario.nombreUsuario)">
-                        <button (click)="eliminarAsignacionTarea(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">clear</i></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div *ngIf="currentTarea != null">
-    <button class="waves-effect waves-light btn red" (click)="goBack()">Volver</button>
-</div>
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Foto de Perfil</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Usuario</th>
+            <th *ngIf="currentTarea == null">Tareas</th>
+            <th *ngIf="currentTarea == null">Detalle</th>
+            <th *ngIf="currentTarea == null">Contacto</th>
+            <th *ngIf="currentTarea != null">Asignar</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let usuario of usuarios$ | async">
+            <td *ngIf="usuario.nombreUsuario != currentUser && usuario.foto">
+                <img [src]="URL_API + usuario.foto" alt="Imagen Usuario" class="perfil" width="60" height="auto">
+            </td>
+            <td *ngIf="usuario.nombreUsuario != currentUser && !usuario.foto">
+                <img [src]="'assets/nophoto.png'" alt="Imagen Usuario" class="perfil" width="60" height="auto">
+            </td>
+            <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.nombre}}</td>
+            <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.apellido}}</td> 
+            <td *ngIf="usuario.nombreUsuario != currentUser">{{usuario.nombreUsuario}}</td>
+            <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea == null">
+                <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/asignaciones" class="btn-floating waves-effect waves-light red"><i class="material-icons">event_note</i></a>
+            </td>
+            <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea == null">
+                <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
+            </td>
+            <td *ngIf="!usuarioSesion.contactos.includes(usuario.nombreUsuario) && usuario.nombreUsuario != currentUser && currentTarea == null">
+                <button (click)="agregarContacto(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">add</i></button>
+            </td>
+            <td *ngIf="usuarioSesion.contactos.includes(usuario.nombreUsuario) && usuario.nombreUsuario != currentUser && currentTarea == null">
+                <button (click)="eliminarContacto(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">clear</i></button>
+            </td>
+            <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea != null && !(usuariosAsignados.includes(usuario.nombreUsuario))">
+                <button (click)="asignarTarea(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">check</i></button>
+            </td>
+            <td *ngIf="usuario.nombreUsuario != currentUser && currentTarea != null && usuariosAsignados.includes(usuario.nombreUsuario)">
+                <button (click)="eliminarAsignacionTarea(usuario.nombreUsuario)" class="btn-floating waves-effect waves-light red" *ngIf="usuario.nombreUsuario != currentUser"><i class="material-icons">clear</i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,19 @@
+<app-menu></app-menu>
+<div>
+    <h3>Listado de usuarios</h3>
+</div>
+<div class="container">
+    <div>
+        <app-search-box (listUsuarios)="updateList($event)"></app-search-box>
+        <div>
+            <button class="waves-effect waves-light btn-large red" (click)="asignarContactos()">Asignar a todos los Contactos</button>
+        </div>
+        <app-listado-usuarios 
+          [usuarios$]="usuarios$" 
+          [currentTarea]="currentTarea">
+        </app-listado-usuarios>
+    </div>
+</div>
+<div>
+    <button class="waves-effect waves-light btn red" (click)="goBack()">Volver</button>
+</div>

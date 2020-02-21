@@ -1,12 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UsuarioService } from '../services/usuario.service';
-import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-import { Asignacion } from '../models/asignacion';
 import { AsignacionService } from '../services/asignacion.service';
-import { Usuario } from '../models/usuario';
-import { Tarea } from '../models/tarea';
+import { Asignacion } from '../models/asignacion';
 
 @Component({
   selector: 'app-listado-usuarios',
@@ -15,24 +10,19 @@ import { Tarea } from '../models/tarea';
 })
 export class ListadoUsuariosComponent implements OnInit {
 
-  usuarios$: any = null;
-  usuarioSesion: any = null;
+  @Input() usuarios$: any;
+  @Input() currentTarea: any;
+  usuariosAsignados: any = null;
   currentUser: string = localStorage.getItem("USUARIO");
-  currentTarea: any = null;
-  asignacionesTarea: any = null;
-  usuariosAsignados = [];
+  usuarioSesion: any = null;
   URL_API = 'http://localhost:3000/';
 
-  constructor(
-    private usuarioService: UsuarioService, 
-    private route: ActivatedRoute, 
-    private location: Location, 
-    private asignacionService: AsignacionService) { }
+  constructor(private usuarioService: UsuarioService, private asignacionService: AsignacionService) { }
 
   ngOnInit() {
     this.getUsuarios();
     this.getUsuario();
-    this.getCurrentTarea();
+    this.asignacionService.usuariosAsignados.subscribe(res => this.usuariosAsignados = res);
   }
 
   getUsuarios() {
@@ -55,10 +45,6 @@ export class ListadoUsuariosComponent implements OnInit {
       });
   }
 
-  updateList(users: Observable<Object>){
-    this.usuarios$ = users;
-  }
-
   agregarContacto(contacto) {
     this.usuarioService.agregarContacto(this.currentUser, contacto)
       .subscribe(() => {
@@ -79,18 +65,6 @@ export class ListadoUsuariosComponent implements OnInit {
       });
   }
 
-  getCurrentTarea() {
-    if(this.route.snapshot.paramMap.get('idTarea')){
-      this.currentTarea = this.route.snapshot.paramMap.get('idTarea');
-      this.getAsignaciones();
-    }
-  }
-
-  goBack() {
-    this.currentTarea = null;
-    this.location.back();
-  }
-
   asignarTarea(nombreUsuario) {
     let asignacion = new Asignacion();
     asignacion.id_tarea = this.currentTarea;
@@ -98,7 +72,7 @@ export class ListadoUsuariosComponent implements OnInit {
     this.asignacionService.asignarTarea(asignacion)
       .subscribe(() => {
         this.getUsuario();
-        this.getAsignaciones();
+        this.asignacionService.getAsignaciones(this.currentTarea);
       },
       err => {
         console.log('Error ', err);
@@ -110,32 +84,10 @@ export class ListadoUsuariosComponent implements OnInit {
     this.asignacionService.eliminarAsignacionTarea(nombreUsuario, id_tarea)
       .subscribe(() => {
         this.getUsuario();
-        this.getAsignaciones();
+        this.asignacionService.getAsignaciones(this.currentTarea);
       },
       err => {
         console.log('Error ', err);
       });
-  }
-
-  getAsignaciones() {
-    this.asignacionService.getAsignacionesTarea(this.currentTarea)
-      .subscribe(asignaciones => {
-        this.asignacionesTarea = asignaciones;
-        this.usuariosAsignados = [];
-        this.asignacionesTarea.forEach(asignacion => {
-          this.usuariosAsignados.push(asignacion.id_asignado);
-        });
-      },
-      err => {
-        console.log('Error ', err);
-      });
-  }
-
-  asignarContactos() {
-    this.usuarioSesion.contactos.forEach(contacto => {
-      if(!this.usuariosAsignados.includes(contacto)) {
-        this.asignarTarea(contacto);
-      }
-    });
   }
 }

@@ -1,0 +1,10 @@
+<app-menu></app-menu>
+<div>
+    <h3>Listado de usuarios</h3>
+</div>
+<div class="container">
+    <div>
+        <app-search-box (listUsuarios)="updateList($event)"></app-search-box>
+        <app-listado-usuarios [usuarios$]="usuarios$"></app-listado-usuarios>
+    </div>
+</div>
