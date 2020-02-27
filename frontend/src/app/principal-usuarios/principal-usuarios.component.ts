@@ -3,7 +3,6 @@ import { UsuarioService } from '../services/usuario.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { Asignacion } from '../models/asignacion';
 import { AsignacionService } from '../services/asignacion.service';
 
 @Component({

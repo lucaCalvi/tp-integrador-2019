@@ -33,12 +33,9 @@ export class AsignacionService {
   getAsignaciones(currentTarea) {
     this.getAsignacionesTarea(currentTarea)
       .subscribe(asignaciones => {
-        let asignacionesTarea: any;
-        asignacionesTarea = asignaciones;
-        let usuariosAsignados = [];
-        asignacionesTarea.forEach(asignacion => {
-          usuariosAsignados.push(asignacion.id_asignado);
-        });
+        if(Array.isArray(asignaciones)){
+          var usuariosAsignados = asignaciones.map(asignacion => asignacion.id_asignado);
+        }
         this.usuariosAsignados.emit(usuariosAsignados);
       },
       err => {

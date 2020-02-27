@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../services/usuario.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -32,39 +32,15 @@ export class ListadoTareasAsignadasComponent implements OnInit {
   getTareas() {
     this.usuarioService.getTareas(this.nombreUsuario)
       .subscribe(res => {
-        this.tareas = res;
-        if(this.tareas){
-          if(this.estado == 'pendientes'){
-            let aux = [];
-            this.tareas.forEach(tarea => {
-              if(tarea.estado == 'Pendiente'){
-                aux.push(tarea);
-              }
-            });
-            if(aux.length > 0){
-              this.tareas = aux;
-            }
-            else {
-              this.tareas = null;
-            }
+        if(Array.isArray(res)) {
+          if(this.estado == 'pendientes') {
+            this.tareas = res.filter(tarea => tarea.estado == 'Pendiente');
+          } else if(this.estado == 'completas') {
+            this.tareas = res.filter(tarea => tarea.estado == 'Completa');
           }
-          if(this.estado == 'completas'){
-            let aux = [];
-            this.tareas.forEach(tarea => {
-              if(tarea.estado == 'Completa'){
-                aux.push(tarea);
-              }
-            });
-            if(aux.length > 0){
-              this.tareas = aux;
-            }
-            else {
-              this.tareas = null;
-            }
+          if(this.tareas.length < 1) {
+            this.tareas = null;
           }
-        }
-        else {
-          this.tareas = null;
         }
       },
       err => {
