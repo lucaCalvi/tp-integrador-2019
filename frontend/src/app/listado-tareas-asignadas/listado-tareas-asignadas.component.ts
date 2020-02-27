@@ -37,6 +37,8 @@ export class ListadoTareasAsignadasComponent implements OnInit {
             this.tareas = res.filter(tarea => tarea.estado == 'Pendiente');
           } else if(this.estado == 'completas') {
             this.tareas = res.filter(tarea => tarea.estado == 'Completa');
+          } else {
+            this.tareas = res;
           }
           if(this.tareas.length < 1) {
             this.tareas = null;
