@@ -12,6 +12,7 @@
                 <th>Fecha de inicio</th>
                 <th>Estado</th>
                 <th>Detalle</th>
+                <th *ngIf="nombreUsuario == currentUser && estado == 'pendientes'">Archivo</th>
                 <th *ngIf="nombreUsuario == currentUser && estado == 'pendientes'">Marcar como completa</th>
             </tr>
         </thead>
@@ -22,6 +23,20 @@
                 <td>{{tarea.estado}}</td>
                 <td>
                     <a routerLink="/api/usuarios/{{usuario.nombreUsuario}}/asignaciones/{{tarea._id}}" class="btn-floating waves-effect waves-light red"><i class="material-icons">description</i></a>
+                </td>
+                <td *ngIf="nombreUsuario == currentUser && estado == 'pendientes'">
+                    <form action="/api/files" method="POST" enctype="multipart/form-data">
+                        <div class="file-field input-field file">
+                            <div class="btn red lighten-1 file">
+                              <span>Archivo</span>
+                              <input type="file" class="btn red lighten-1" id="input-file" (change)="onFileChange($event)">
+                            </div>
+                            <div class="file-path-wrapper file">
+                              <input type="text" id="inputText" class="file-path">
+                            </div>
+                        </div>
+                        <button type="reset" class="btn-floating waves-effect waves-light btn red lighten-1"><i class="material-icons">delete</i></button>
+                    </form>
                 </td>
                 <td *ngIf="nombreUsuario == currentUser && estado == 'pendientes'">
                     <button class="btn-floating waves-effect waves-light red" (click)="cambiarEstado(currentUser, tarea._id, 'Completa')"><i class="material-icons">check</i></button>

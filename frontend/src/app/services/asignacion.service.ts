@@ -29,6 +29,10 @@ export class AsignacionService {
   cambiarEstado(asignacion): Observable<Object> {
     return this.httpClient.put(this.URL_API + `/${asignacion.id_tarea}`, asignacion);
   }
+
+  uploadFile(formData): Observable<Object> {
+    return this.httpClient.post(this.URL_API + '/uploadFile', formData);
+  }
   
   getAsignaciones(currentTarea) {
     this.getAsignacionesTarea(currentTarea)

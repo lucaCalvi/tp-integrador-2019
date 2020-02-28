@@ -7,7 +7,8 @@ AsignacionController.asignarTarea = (req, res) => {
         id_tarea: req.body.id_tarea,
         id_asignado: req.body.id_asignado,
         fechaFin: null,
-        estado: 'Pendiente'
+        estado: 'Pendiente',
+        archivo: null
     });
 
     asignacion.save()
@@ -110,7 +111,8 @@ AsignacionController.cambiarEstado = (req, res) => {
         estado: req.body.estado,
         fechaFin: req.body.fechaFin,
         id_tarea: req.body.id_tarea,
-        id_asignado: req.body.id_asignado
+        id_asignado: req.body.id_asignado,
+        archivo: req.body.archivo
     };
 
     Asignacion.findOneAndUpdate({id_tarea: idTarea, id_asignado: nombreUsuario}, {$set: asignacion})
@@ -120,6 +122,10 @@ AsignacionController.cambiarEstado = (req, res) => {
       .catch(err => {
           res.status(500).json({error: err.message});
       });
+}
+
+AsignacionController.uploadFile = (req, res) => {
+    res.json({'message': 'Archivo subido correctamente'});
 }
 
 module.exports = AsignacionController;

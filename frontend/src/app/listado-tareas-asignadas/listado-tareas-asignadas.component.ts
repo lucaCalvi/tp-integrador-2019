@@ -17,6 +17,7 @@ export class ListadoTareasAsignadasComponent implements OnInit {
   currentUser: string = localStorage.getItem("USUARIO");
   nombreUsuario: string = this.route.snapshot.paramMap.get('nombreUsuario');
   estado: string = this.route.snapshot.paramMap.get('estado');
+  file: Array<File> = [];
 
   constructor(
     private usuarioService: UsuarioService,
@@ -65,15 +66,24 @@ export class ListadoTareasAsignadasComponent implements OnInit {
     this.location.back();
   }
 
+  //cambiar nombre con el que se guarda, ver para mostrar luego de completada o mandar a asignador por mail
   cambiarEstado(id_asignado, id_tarea, estado) {
     let asignacion = new Asignacion();
     asignacion.estado = estado;
     asignacion.fechaFin = new Date();
     asignacion.id_asignado = id_asignado;
     asignacion.id_tarea = id_tarea;
+
+    let formData = new FormData();
+    if(this.file.length > 0) {
+      formData.set('files', this.file[0], this.file[0].name);
+      asignacion.archivo = this.file[0].name;
+    }
   
     this.asignacionService.cambiarEstado(asignacion)
       .subscribe(() => {
+        this.asignacionService.uploadFile(formData)
+          .subscribe(res => console.log('Response: ', res), err => console.log('Error ', err));
         this.getTareas();
       },
       err => {
@@ -81,4 +91,7 @@ export class ListadoTareasAsignadasComponent implements OnInit {
       });
   }
 
+  onFileChange(e) {
+    this.file = e.target.files;
+  }
 }
