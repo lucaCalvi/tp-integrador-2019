@@ -12,7 +12,7 @@ import { RegistrarUsuarioComponent } from './registrar-usuario/registrar-usuario
 import { ConfigurarUsuarioComponent } from './configurar-usuario/configurar-usuario.component';
 import { PrincipalUsuariosComponent } from './principal-usuarios/principal-usuarios.component';
 import { AsignarTareaComponent } from './asignar-tarea/asignar-tarea.component';
-
+import { ConfigurarTareaComponent } from './configurar-tarea/configurar-tarea.component';
 const routes: Routes = [
   { path: '', redirectTo: '/api/login', pathMatch: 'full' },
   { path: 'api/usuarios', component: PrincipalUsuariosComponent, canActivate: [AuthGuard] },
@@ -24,7 +24,8 @@ const routes: Routes = [
   { path: 'api/login', component: LoginComponent },
   { path: 'api/usuarios/:nombreUsuario/tareas', component: ListadoTareasCreadasComponent, canActivate: [AuthGuard] },
   { path: 'api/tareas/registrar', component: FormularioTareaComponent, canActivate: [AuthGuard] },
-  { path: 'api/tareas/:idTarea/modificar', component: FormularioTareaComponent, canActivate: [AuthGuard] },
+ // { path: 'api/tareas/:idTarea/modificar', component: FormularioTareaComponent, canActivate: [AuthGuard] },
+  { path: 'api/tareas/:idTarea/modificar', component: ConfigurarTareaComponent, canActivate: [AuthGuard] },
   { path: 'api/asignaciones/:idTarea', component: AsignarTareaComponent, canActivate: [AuthGuard] },
   { path: 'api/usuarios/:nombreUsuario/tareas-pendientes/:estado', component: ListadoTareasAsignadasComponent, canActivate: [AuthGuard] },
   { path: 'api/usuarios/:nombreUsuario/tareas-completas/:estado', component: ListadoTareasAsignadasComponent, canActivate: [AuthGuard] }

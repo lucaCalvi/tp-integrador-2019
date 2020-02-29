@@ -1,0 +1,6 @@
+<app-menu></app-menu>
+<app-formulario-tarea #formulario [err]="err"></app-formulario-tarea>
+<div class="buttons">
+  <button class="waves-effect waves-light btn red lighten-1" (click)="updateTarea(formulario.form)" >Modificar</button>
+  <button class="waves-effect waves-light btn red lighten-1" (click)="goBack()">Volver</button>
+</div>

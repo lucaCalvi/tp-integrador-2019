@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { TareaService } from '../services/tarea.service';
 import { AuthService } from '../auth/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,7 +13,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./formulario-tarea.component.css']
 })
 export class FormularioTareaComponent implements OnInit {
-
+  @Input() err: string;
   tarea: any = null;
   form: FormGroup;
   currentUserName: string = null;
