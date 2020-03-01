@@ -19,4 +19,9 @@ hr {
     height: 0px;
     background-color: white;
     margin-top: 15px;
-  }
+}
+
+div.pdf {
+    height: 100%;
+    width: 100%;
+}

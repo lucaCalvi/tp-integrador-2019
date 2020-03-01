@@ -9,7 +9,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./detalle-tarea.component.css']
 })
 export class DetalleTareaComponent implements OnInit {
-
+  
+  URL_API = "http://localhost:3000/"
   tarea: any = null;
   asignador: any = null;
 

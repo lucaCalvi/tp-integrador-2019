@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const AsignacionController = require('../controllers/asignacion.controller');
 const multipart = require('connect-multiparty');
-const multipartMiddleware = multipart({ uploadDir: './files' });
+const multipartMiddleware = multipart({ uploadDir: './upload/files' });
 
 router.post('/', AsignacionController.asignarTarea);
 router.delete('/:idTarea', AsignacionController.eliminarAsignacionTarea);

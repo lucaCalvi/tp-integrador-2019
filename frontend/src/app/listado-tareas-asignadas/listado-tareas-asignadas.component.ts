@@ -77,18 +77,19 @@ export class ListadoTareasAsignadasComponent implements OnInit {
     let formData = new FormData();
     if(this.file.length > 0) {
       formData.set('files', this.file[0], this.file[0].name);
-      asignacion.archivo = this.file[0].name;
-    }
-  
-    this.asignacionService.cambiarEstado(asignacion)
-      .subscribe(() => {
-        this.asignacionService.uploadFile(formData)
-          .subscribe(res => console.log('Response: ', res), err => console.log('Error ', err));
-        this.getTareas();
+      this.asignacionService.uploadFile(formData)
+      .subscribe(res => {
+        asignacion.archivo = res.toString();
+        this.asignacionService.cambiarEstado(asignacion)
+          .subscribe(() => this.getTareas(), err => console.log('Error ', err));
       },
       err => {
         console.log('Error ', err);
       });
+    } else {
+      this.asignacionService.cambiarEstado(asignacion)
+        .subscribe(() => this.getTareas(), err => console.log('Error ', err));
+    }
   }
 
   onFileChange(e) {
