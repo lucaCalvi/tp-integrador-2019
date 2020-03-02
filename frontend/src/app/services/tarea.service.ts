@@ -23,7 +23,7 @@ export class TareaService {
     return this.httpClient.get(this.URL_API + `/${idTarea}`);
   }
 
-  updateTarea(tarea): Observable<Object> {
-    return this.httpClient.put(this.URL_API + `/${tarea._id}`,  tarea);
+  updateTarea(tarea, currentTarea): Observable<Object> {
+    return this.httpClient.put(this.URL_API + `/${currentTarea}`,  tarea); // antesreturn this.httpClient.put(this.URL_API + `/${tarea._id}`,  tarea);
   }
 }

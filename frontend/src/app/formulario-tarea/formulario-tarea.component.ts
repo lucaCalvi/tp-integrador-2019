@@ -108,7 +108,7 @@ export class FormularioTareaComponent implements OnInit {
     this.location.back();
   }
 
-  updateTarea() {
+  /*updateTarea() {
     this.loadTarea();
     this.tareaService.updateTarea(this.tarea)
     .subscribe(() => {
@@ -117,5 +117,5 @@ export class FormularioTareaComponent implements OnInit {
     err => {
       console.log('Error ', err);
     });
-  }
+  }*/
 }

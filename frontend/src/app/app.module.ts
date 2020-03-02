@@ -21,6 +21,7 @@ import { ConfigurarUsuarioComponent } from './configurar-usuario/configurar-usua
 import { PrincipalUsuariosComponent } from './principal-usuarios/principal-usuarios.component';
 import { AsignarTareaComponent } from './asignar-tarea/asignar-tarea.component';
 import { ConfigurarTareaComponent } from './configurar-tarea/configurar-tarea.component';
+import { RegistrarTareaComponent } from './registrar-tarea/registrar-tarea.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ConfigurarTareaComponent } from './configurar-tarea/configurar-tarea.co
     ConfigurarUsuarioComponent,
     PrincipalUsuariosComponent,
     AsignarTareaComponent,
-    ConfigurarTareaComponent
+    ConfigurarTareaComponent,
+    RegistrarTareaComponent
   ],
   imports: [
     BrowserModule,
