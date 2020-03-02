@@ -21,8 +21,6 @@ import { ConfigurarUsuarioComponent } from './configurar-usuario/configurar-usua
 import { PrincipalUsuariosComponent } from './principal-usuarios/principal-usuarios.component';
 import { AsignarTareaComponent } from './asignar-tarea/asignar-tarea.component';
 
-import { PdfViewerModule } from 'ng2-pdf-viewer';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,8 +44,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
-    PdfViewerModule
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

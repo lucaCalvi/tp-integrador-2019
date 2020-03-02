@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { AsignacionService } from '../services/asignacion.service';
 import { UsuarioService } from '../services/usuario.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-asignar-tarea',
@@ -11,6 +12,7 @@ import { UsuarioService } from '../services/usuario.service';
 })
 export class AsignarTareaComponent implements OnInit {
 
+  usuarios$: any;
   usuarioSesion: any = null;
   currentUser: string = localStorage.getItem("USUARIO");
   currentTarea: any = null;
@@ -44,6 +46,10 @@ export class AsignarTareaComponent implements OnInit {
       err => {
         console.log('Error ', err);
       });
+  }
+
+  updateList(users: Observable<Object>){
+    this.usuarios$ = users;
   }
 
   goBack() {
