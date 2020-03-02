@@ -41,16 +41,18 @@ UsuarioController.insertUsuario = (req, res) => {
         foto: null
     });
 
-    if(req.body.foto != null) {
+    console.log(req.body.photo);
+
+    if(req.body.foto != null && req.body.foto != '') {
         var foto = req.body.foto;
         var nombreFoto = Math.round(Math.random() * 1000000000000000).toString() + ".jpg";  
-        fs.writeFile('upload/' + nombreFoto, foto, 'base64', (err) => {
+        fs.writeFile('upload/photos/' + nombreFoto, foto, 'base64', (err) => {
             if(err) {
                 status = 400;
                 throw new Error("Error al guardar imagen de usuario");
             }
         });
-        usuario.foto = 'upload/' + nombreFoto;
+        usuario.foto = 'upload/photos/' + nombreFoto;
     }
     else {
         usuario.foto = null;
@@ -96,16 +98,16 @@ UsuarioController.updateUsuario = (req, res) => {
         foto: req.body.foto
     };
 
-    if(req.body.foto != null && !req.body.foto.includes('upload')) {
+    if(req.body.foto != null && !req.body.foto.includes('upload') && req.body.foto != '') {
         var foto = req.body.foto;
         var nombreFoto = Math.round(Math.random() * 1000000000000000).toString() + ".jpg";  
-        fs.writeFile('upload/' + nombreFoto, foto, 'base64', (err) => {
+        fs.writeFile('upload/photos/' + nombreFoto, foto, 'base64', (err) => {
             if(err) {
                 status = 400;
                 throw new Error("Error al guardar imagen de usuario");
             }
         });
-        usuario.foto = 'upload/' + nombreFoto;
+        usuario.foto = 'upload/photos/' + nombreFoto;
     }
     else if(req.body.foto != null && req.body.foto.includes('upload')){
         usuario.foto = req.body.foto;

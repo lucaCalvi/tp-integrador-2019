@@ -46,6 +46,7 @@ export class FormularioComponent implements OnInit {
 
   resetPhoto() {
     this.photoSelected = null;
+    this.form.controls.foto.setValue(null);
     this.form.controls.selectedFileText.setValue('');
   }
 

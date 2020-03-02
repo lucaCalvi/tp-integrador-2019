@@ -66,7 +66,6 @@ export class ListadoTareasAsignadasComponent implements OnInit {
     this.location.back();
   }
 
-  //cambiar nombre con el que se guarda, ver para mostrar luego de completada o mandar a asignador por mail
   cambiarEstado(id_asignado, id_tarea, estado) {
     let asignacion = new Asignacion();
     asignacion.estado = estado;

@@ -12,10 +12,6 @@
           <h5>Lugar</h5>{{tarea.lugar}}<span *ngIf="tarea.lugar == ''">-Sin especificar-</span>
           <h5>Asignador</h5>{{asignador.nombre}} {{asignador.apellido}}
           <h5 *ngIf="!(tarea.archivo == '' || tarea.archivo == null)">Resolucion</h5>
-          <!--<div class="pdf">
-            <pdf-viewer [src]="'http://localhost:3000/upload/ProcesoPPSV2009.pdf'" [zoom]="0.5" [show-all]="false" [stick-to-page]="true" [page]="1" [render-text]="true" style="display: block;"></pdf-viewer>
-          </div>-->
-          <!--Hacer generico para cada tarea asignada y ver nombre archivos en carpeta upload-->
           <a *ngIf="!(tarea.archivo == '' || tarea.archivo == null)" href="{{URL_API}}{{tarea.archivo}}" target="_blank">Abrir archivo en otra pestaña</a>
         </div>
       </div>
